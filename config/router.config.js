@@ -15,55 +15,25 @@ export default [
     Routes: ['src/pages/Authorized'],
     authority: ['tutuniao'],
     routes: [
-      { path: '/', redirect: '/activate/table-list' },
+      { path: '/', redirect: '/activity/list' },
       // list
       {
-        path: '/activate',
+        path: '/activity',
         icon: 'table',
-        name: 'activate',
+        name: 'activity',
         routes: [
           {
-            path: '/activate/table-list',
-            name: 'searchtable',
-            component: './List/TableList',
-          }
-          // ,
-          // {
-          //   path: '/list/basic-list',
-          //   name: 'basiclist',
-          //   component: './List/BasicList',
-          // },
-          // {
-          //   path: '/list/card-list',
-          //   name: 'cardlist',
-          //   component: './List/CardList',
-          // },
-          // {
-          //   path: '/list/search',
-          //   name: 'searchlist',
-          //   component: './List/List',
-          //   routes: [
-          //     {
-          //       path: '/list/search',
-          //       redirect: '/list/search/articles',
-          //     },
-          //     {
-          //       path: '/list/search/articles',
-          //       name: 'articles',
-          //       component: './List/Articles',
-          //     },
-          //     {
-          //       path: '/list/search/projects',
-          //       name: 'projects',
-          //       component: './List/Projects',
-          //     },
-          //     {
-          //       path: '/list/search/applications',
-          //       name: 'applications',
-          //       component: './List/Applications',
-          //     },
-          //   ],
-          // },
+            path: '/activity/list',
+            name: 'list',
+            // component: './List/TableList',
+            component: './Activity/activityList',
+          },
+          {
+            path: '/activity/add',
+            name: 'add',
+            // component: './List/TableList',
+            component: './Activity/addActivity',
+          },
         ],
       },
       {
@@ -75,7 +45,8 @@ export default [
             path: '/guoMei/table-list',
             name: 'searchtable',
             component: './List/TableList',
-          }]
+          },
+        ],
       },
       {
         path: '/news',
@@ -86,7 +57,57 @@ export default [
             path: '/news/table-list',
             name: 'searchtable',
             component: './List/TableList',
-          }]
+          },
+        ],
+      },
+      // list
+      {
+        path: '/list',
+        icon: 'table',
+        name: 'list',
+        routes: [
+          {
+            path: '/list/table-list',
+            name: 'searchtable',
+            component: './List/TableList',
+          },
+          {
+            path: '/list/basic-list',
+            name: 'basiclist',
+            component: './List/BasicList',
+          },
+          {
+            path: '/list/card-list',
+            name: 'cardlist',
+            component: './List/CardList',
+          },
+          {
+            path: '/list/search',
+            name: 'searchlist',
+            component: './List/List',
+            routes: [
+              {
+                path: '/list/search',
+                redirect: '/list/search/articles',
+              },
+              {
+                path: '/list/search/articles',
+                name: 'articles',
+                component: './List/Articles',
+              },
+              {
+                path: '/list/search/projects',
+                name: 'projects',
+                component: './List/Projects',
+              },
+              {
+                path: '/list/search/applications',
+                name: 'applications',
+                component: './List/Applications',
+              },
+            ],
+          },
+        ],
       },
       // forms
       {
@@ -166,6 +187,28 @@ export default [
             component: './Result/Success',
           },
           { path: '/result/fail', name: 'fail', component: './Result/Error' },
+        ],
+      },
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        icon: 'dashboard',
+        routes: [
+          {
+            path: '/dashboard/analysis',
+            name: 'analysis',
+            component: './Dashboard/Analysis',
+          },
+          {
+            path: '/dashboard/monitor',
+            name: 'monitor',
+            component: './Dashboard/Monitor',
+          },
+          {
+            path: '/dashboard/workplace',
+            name: 'workplace',
+            component: './Dashboard/Workplace',
+          },
         ],
       },
       {

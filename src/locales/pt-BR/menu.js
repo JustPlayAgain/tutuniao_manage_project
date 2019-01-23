@@ -35,4 +35,8 @@ export default {
   'menu.account.settings': 'Configurar Conta',
   'menu.account.trigger': 'Disparar Erro',
   'menu.account.logout': 'Sair',
+
+  'menu.activity': '活动',
+  'menu.activity.list': '活动列表页',
+  'menu.activity.add': '新增活动',
 };

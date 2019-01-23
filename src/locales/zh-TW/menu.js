@@ -35,4 +35,8 @@ export default {
   'menu.exception.not-find': '404',
   'menu.exception.server-error': '500',
   'menu.exception.trigger': '触发错误',
+
+  'menu.activity': '活动',
+  'menu.activity.list': '活动列表页',
+  'menu.activity.add': '新增活动',
 };

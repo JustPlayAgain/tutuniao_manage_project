@@ -1,7 +1,9 @@
 import { stringify } from 'qs';
 import request from '@/utils/request';
 
-var http_title = "http://localhost:8888/tutuniao";
+const httpTitle = {
+  tutuniao: 'http://localhost:8888/tutuniao',
+};
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
@@ -12,13 +14,7 @@ export async function queryActivities() {
 }
 
 export async function queryRule(params) {
-  // return request(`/api/rule?${stringify(params)}`);
-  // currentPage=1&pageSize=20
-  if(null != params){
-    return request(`${http_title}/activity/queryActivityList?pageSize=${params['pageSize']}&pageIndex=${params['currentPage']}&${stringify(params)}`);
-  }else{
-    return request(`${http_title}/activity/queryActivityList`);
-  }
+  return request(`/api/rule?${stringify(params)}`);
 }
 
 export async function removeRule(params) {
@@ -112,9 +108,12 @@ export async function updateFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request(`${http_title}/login/login?userName=${params['userName']}&userPassword=${params['password']}`, {
-    method: 'GET',
-  });
+  return request(
+    `${httpTitle.tutuniao}/login/login?userName=${params.userName}&userPassword=${params.password}`,
+    {
+      method: 'GET',
+    }
+  );
 }
 
 export async function fakeRegister(params) {

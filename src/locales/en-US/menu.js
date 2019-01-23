@@ -35,4 +35,8 @@ export default {
   'menu.account.settings': 'Account Settings',
   'menu.account.trigger': 'Trigger Error',
   'menu.account.logout': 'Logout',
+
+  'menu.activity': '活动',
+  'menu.activity.list': '活动列表页',
+  'menu.activity.add': '新增活动',
 };
