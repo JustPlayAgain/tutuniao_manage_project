@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 import request from '@/utils/request';
 
 const httpTitle = {
-  tutuniao: 'http://localhost:8888/tutuniao',
+  tutuniao: 'http://www.tutuniao.com:8008/tutuniao',
 };
 
 export async function queryProjectNotice() {
@@ -111,7 +111,7 @@ export async function fakeAccountLogin(params) {
   return request(
     `${httpTitle.tutuniao}/login/login?userName=${params.userName}&userPassword=${params.password}`,
     {
-      method: 'GET',
+      method: 'POST',
     }
   );
 }

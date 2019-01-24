@@ -11,6 +11,7 @@ import Media from 'react-media';
 import { formatMessage } from 'umi/locale';
 import Authorized from '@/utils/Authorized';
 import logo from '../assets/logo.svg';
+import Header from './Header';
 import Context from './MenuContext';
 import Exception403 from '../pages/Exception/403';
 import PageLoading from '@/components/PageLoading';
@@ -185,6 +186,13 @@ class BasicLayout extends React.PureComponent {
             minHeight: '100vh',
           }}
         >
+          <Header
+            menuData={menuData}
+            handleMenuCollapse={this.handleMenuCollapse}
+            logo={logo}
+            isMobile={isMobile}
+            {...this.props}
+          />
           <Content className={styles.content} style={contentStyle}>
             <Authorized authority={routerConfig} noMatch={<Exception403 />}>
               {children}

@@ -53,6 +53,8 @@ export default {
           currentAuthority: 'guest',
         },
       });
+      localStorage.removeItem('UserEntity');
+      localStorage.removeItem('antd-pro-authority');
       reloadAuthorized();
       yield put(
         routerRedux.push({
@@ -68,7 +70,8 @@ export default {
   reducers: {
     changeLoginStatus(state, { payload }) {
       if (payload.status === 'ok') {
-        setAuthority(payload.data);
+        setAuthority(payload.data.userName);
+        localStorage.setItem('UserEntity', payload.data.uuid);
       }
       return {
         ...state,

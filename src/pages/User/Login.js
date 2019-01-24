@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { formatMessage, FormattedMessage } from 'umi/locale';
-import Link from 'umi/link';
-import { Checkbox, Alert, Icon } from 'antd';
+import { Alert } from 'antd';
 import Login from '@/components/Login';
 import styles from './Login.less';
 
-const { Tab, UserName, Password,  Submit } = Login;
+const { Tab, UserName, Password, Submit } = Login;
 
 @connect(({ login, loading }) => ({
   login,
@@ -53,7 +52,8 @@ class LoginPage extends Component {
           }}
         >
           <Tab key="account" tab={formatMessage({ id: 'app.login.tab-login-credentials' })}>
-            {login.status === 'error' &&
+            {login.status !== undefined &&
+              login.status !== 'ok' &&
               !submitting &&
               this.renderMessage(formatMessage({ id: 'app.login.message-invalid-credentials' }))}
             <UserName

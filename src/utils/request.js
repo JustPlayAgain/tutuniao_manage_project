@@ -73,6 +73,10 @@ export default function request(url, option) {
    * Maybe url has the same parameters
    */
   const fingerprint = url + (options.body ? JSON.stringify(options.body) : '');
+  const userEntity = localStorage.getItem('UserEntity');
+  const userEntityKey = '_id :';
+  const cookies = userEntityKey + userEntity;
+  // stringify(cookie.loadAll(),{delimiter: '; '});
   const hashcode = hash
     .sha256()
     .update(fingerprint)
@@ -92,7 +96,12 @@ export default function request(url, option) {
       newOptions.headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json; charset=utf-8',
-        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Methods': 'POST, GET, PUT',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        uuid: userEntity,
+        Cookie: cookies,
         ...newOptions.headers,
       };
       newOptions.body = JSON.stringify(newOptions.body);
@@ -100,7 +109,12 @@ export default function request(url, option) {
       // newOptions.body is FormData
       newOptions.headers = {
         Accept: 'application/json',
-        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Methods': 'POST, GET, PUT',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        uuid: userEntity,
+        Cookie: cookies,
         ...newOptions.headers,
       };
     }
@@ -121,9 +135,40 @@ export default function request(url, option) {
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
-  return fetch(url, {
-    newOptions
-  })
+  const tmpRequest = new Request(url, {
+    body: JSON.stringify(newOptions.body),
+    headers: new Headers({
+      Accept: 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Credentials': true,
+      'Access-Control-Allow-Methods': 'POST, GET, PUT',
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      uuid: userEntity,
+      Cookie: cookies,
+      ...newOptions.headers,
+    }),
+  });
+
+  // return fetch(url, {
+  //   credentials: 'include',
+  //   // credentials: 'same-origin',
+  //   // method: newOptions.method,
+  //   body: JSON.stringify(newOptions.body),
+  //   headers: new Headers({
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json; charset=utf-8',
+  //     'Access-Control-Allow-Origin' : '*',
+  //     'Access-Control-Allow-Credentials' : true,
+  //     'Access-Control-Allow-Methods' : "POST, GET",
+  //     'Access-Control-Allow-Headers' : "Origin, X-Requested-With, Content-Type, Accept",
+  //     'uuid' : userEntity,
+  //     'Cookie' : cookies,
+  //     ...newOptions.headers,
+  //   }),
+  //
+  // })
+  return fetch(tmpRequest)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
     .then(response => {

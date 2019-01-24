@@ -1,4 +1,8 @@
-import { tutuniaoActivityList, tutuniaoAddActivity } from '@/services/tutuniao';
+import {
+  tutuniaoActivityList,
+  tutuniaoAddActivity,
+  tutuniaoUpdateActivity,
+} from '@/services/tutuniao';
 
 export default {
   namespace: 'activity',
@@ -24,6 +28,14 @@ export default {
         type: 'add',
         payload: response,
       });
+    },
+    *updateActivity({ payload, callback }, { call, put }) {
+      const response = yield call(tutuniaoUpdateActivity, payload);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+      if (callback) callback();
     },
   },
 

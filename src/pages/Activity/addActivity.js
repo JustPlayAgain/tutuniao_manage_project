@@ -1,10 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
+import Redirect from 'umi/redirect';
 import { Form, Input, Card, DatePicker, Button } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 const FormItem = Form.Item;
-@connect(({ loading }) => ({
+@connect(({ activity, loading }) => ({
+  activity,
   submitting: loading.effects['activity/addActivity'],
 }))
 @Form.create()
@@ -15,7 +17,7 @@ class ActivityForms extends PureComponent {
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
         ...values,
-        activityDate: values['date-picker'].format('YYYY-MM-DD'),
+        activityDate: values.activityDate.format('YYYY-MM-DD'),
       };
       if (!err) {
         dispatch({
@@ -27,7 +29,11 @@ class ActivityForms extends PureComponent {
   };
 
   render() {
-    const { submitting, form } = this.props;
+    const {
+      activity: { data },
+      submitting,
+      form,
+    } = this.props;
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: {
@@ -46,6 +52,12 @@ class ActivityForms extends PureComponent {
         sm: { span: 10, offset: 7 },
       },
     };
+    if (data !== undefined && data.status === '1005') {
+      return <Redirect to="/user/login" />;
+    }
+    if (data !== undefined && data.status === 'ok') {
+      return <Redirect to="/activity/list" />;
+    }
     return (
       <PageHeaderWrapper title="新增活动">
         <Card bordered={false}>

@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 import request from '@/utils/request';
 
 const httpTitle = {
-  tutuniao: 'http://localhost:8888/tutuniao',
+  tutuniao: 'http://www.tutuniao.com:8008/tutuniao',
 };
 
 export async function tutuniaoActivityList(params) {
@@ -12,12 +12,23 @@ export async function tutuniaoActivityList(params) {
     return request(
       `${httpTitle.tutuniao}/activity/queryActivityList?pageSize=${params.pageSize}&pageIndex=${
         params.currentPage
-      }&${stringify(params)}`
+      }&${stringify(params)}`,
+      { method: 'GET' }
     );
   }
-  return request(`${httpTitle.tutuniao}/activity/queryActivityList`);
+  return request(`${httpTitle.tutuniao}/activity/queryActivityList`, { method: 'GET' });
 }
 
 export async function tutuniaoAddActivity(params) {
-  return request(`${httpTitle.tutuniao}/activity/insertActivity?${stringify(params)}`);
+  return request(`${httpTitle.tutuniao}/activity/insertActivity?${stringify(params)}`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+}
+
+export async function tutuniaoUpdateActivity(params) {
+  return request(`${httpTitle.tutuniao}/activity/updateActivity?${stringify(params)}`, {
+    method: 'update',
+    credentials: 'include',
+  });
 }
