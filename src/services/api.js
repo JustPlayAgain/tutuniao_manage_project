@@ -1,9 +1,8 @@
 import { stringify } from 'qs';
 import request from '@/utils/request';
+import { getHttpTitle } from '@/utils/utils';
 
-const httpTitle = {
-  tutuniao: 'http://www.tutuniao.com:8008/tutuniao',
-};
+const { httpTitle } = getHttpTitle();
 
 export async function queryProjectNotice() {
   return request('/api/project/notice');
@@ -108,12 +107,13 @@ export async function updateFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request(
-    `${httpTitle.tutuniao}/login/login?userName=${params.userName}&userPassword=${params.password}`,
-    {
-      method: 'POST',
-    }
-  );
+  return request(`${httpTitle}/login/login`, {
+    method: 'POST',
+    body: {
+      userName: params.userName,
+      userPassword: params.password,
+    },
+  });
 }
 
 export async function fakeRegister(params) {

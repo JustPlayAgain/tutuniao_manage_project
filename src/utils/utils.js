@@ -3,6 +3,10 @@ import React from 'react';
 import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 
+export function getHttpTitle() {
+  return 'http://www.tutuniao.com:8008/tutuniao';
+}
+
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
 }

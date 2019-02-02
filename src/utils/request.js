@@ -135,40 +135,8 @@ export default function request(url, option) {
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
-  const tmpRequest = new Request(url, {
-    body: JSON.stringify(newOptions.body),
-    headers: new Headers({
-      Accept: 'application/json',
-      'Content-Type': 'application/json; charset=utf-8',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': true,
-      'Access-Control-Allow-Methods': 'POST, GET, PUT',
-      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      uuid: userEntity,
-      Cookie: cookies,
-      ...newOptions.headers,
-    }),
-  });
 
-  // return fetch(url, {
-  //   credentials: 'include',
-  //   // credentials: 'same-origin',
-  //   // method: newOptions.method,
-  //   body: JSON.stringify(newOptions.body),
-  //   headers: new Headers({
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json; charset=utf-8',
-  //     'Access-Control-Allow-Origin' : '*',
-  //     'Access-Control-Allow-Credentials' : true,
-  //     'Access-Control-Allow-Methods' : "POST, GET",
-  //     'Access-Control-Allow-Headers' : "Origin, X-Requested-With, Content-Type, Accept",
-  //     'uuid' : userEntity,
-  //     'Cookie' : cookies,
-  //     ...newOptions.headers,
-  //   }),
-  //
-  // })
-  return fetch(tmpRequest)
+  return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
     .then(response => {
