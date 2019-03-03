@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import activityList from './guoMei.less';
+import activityList from './news.less';
 
 const FormItem = Form.Item;
 
@@ -116,12 +116,12 @@ class UpdateActivityForm extends PureComponent {
 }
 
 /* eslint react/no-multi-comp:0 */
-@connect(({ guoMei, loading }) => ({
-  guoMei,
-  loading: loading.models.guoMei,
+@connect(({ news, loading }) => ({
+  news,
+  loading: loading.models.news,
 }))
 @Form.create()
-class GuoMeiList extends PureComponent {
+class NewsList extends PureComponent {
   state = {
     selectedRows: [],
     updateModalVisible: false,
@@ -130,54 +130,27 @@ class GuoMeiList extends PureComponent {
 
   columns = [
     {
-      title: '学员姓名',
-      dataIndex: 'studentName',
+      title: '活动名称',
+      dataIndex: 'newsTitle',
     },
     {
-      title: '国籍',
-      dataIndex: 'nationality',
+      title: '创建人',
+      dataIndex: 'createUser',
     },
     {
-      title: '民族',
-      dataIndex: 'nation',
-    },
-    {
-      title: '性别',
-      dataIndex: 'gender',
-    },
-    {
-      title: '证书编号',
-      dataIndex: 'certificateNumber',
-    },
-    {
-      title: '出生日期',
+      title: '创建时间',
       sorter: true,
-      dataIndex: 'birthDate',
+      dataIndex: 'createDate',
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
     {
-      title: '专业',
-      dataIndex: 'profession',
+      title: '修改人',
+      dataIndex: 'updateUser',
     },
     {
-      title: '申报级别',
-      dataIndex: 'declareLevel',
-    },
-    {
-      title: '考试级别',
-      dataIndex: 'examinationLevel',
-    },
-    {
-      title: '原级别',
-      dataIndex: 'originalLevel',
-    },
-    {
-      title: '所在地',
-      dataIndex: 'nativePlace',
-    },
-    {
-      title: '考试时间',
-      dataIndex: 'examDate',
+      title: '修改时间',
+      sorter: true,
+      dataIndex: 'updateDate',
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
     {
@@ -194,7 +167,7 @@ class GuoMeiList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'guoMei/queryguoMeiList',
+      type: 'news/queryNewsList',
     });
   }
 
@@ -250,7 +223,7 @@ class GuoMeiList extends PureComponent {
 
   render() {
     const {
-      guoMei: { data },
+      news: { data },
       loading,
     } = this.props;
     const { list = [], pagination } = data;
@@ -292,4 +265,4 @@ class GuoMeiList extends PureComponent {
   }
 }
 
-export default GuoMeiList;
+export default NewsList;

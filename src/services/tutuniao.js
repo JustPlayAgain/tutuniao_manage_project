@@ -2,7 +2,7 @@ import { stringify } from 'qs';
 import request from '@/utils/request';
 import { getHttpTitle } from '@/utils/utils';
 
-const { httpTitle } = getHttpTitle();
+const httpTitle = getHttpTitle();
 
 export async function tutuniaoActivityList(params) {
   // return request(`/api/rule?${stringify(params)}`);

@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import activityList from './guoMei.less';
+import activityList from './match.less';
 
 const FormItem = Form.Item;
 
@@ -13,7 +13,7 @@ const FormItem = Form.Item;
 //     .join(',');
 
 @Form.create()
-class UpdateActivityForm extends PureComponent {
+class UpdateMatchForm extends PureComponent {
   static defaultProps = {
     handleUpdate: () => {},
     handleUpdateModalVisible: () => {},
@@ -69,7 +69,7 @@ class UpdateActivityForm extends PureComponent {
         width={640}
         bodyStyle={{ padding: '32px 40px 48px' }}
         destroyOnClose
-        title="修改活动"
+        title="修改图图鸟证书"
         onCancel={() => handleUpdateModalVisible(false, values)}
         // onOk={okHandle(this.handleSubmit)}
         onOk={this.handleSubmit}
@@ -77,11 +77,11 @@ class UpdateActivityForm extends PureComponent {
       >
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
           <FormItem {...formItemLayout} label="学员姓名">
-            {getFieldDecorator('activityName', {
+            {getFieldDecorator('studentName', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动名称',
+                  message: '请输入学员姓名',
                 },
               ],
               initialValue: formValues.activityName,
@@ -116,12 +116,12 @@ class UpdateActivityForm extends PureComponent {
 }
 
 /* eslint react/no-multi-comp:0 */
-@connect(({ guoMei, loading }) => ({
-  guoMei,
-  loading: loading.models.guoMei,
+@connect(({ match, loading }) => ({
+  match,
+  loading: loading.models.match,
 }))
 @Form.create()
-class GuoMeiList extends PureComponent {
+class MatchList extends PureComponent {
   state = {
     selectedRows: [],
     updateModalVisible: false,
@@ -134,51 +134,36 @@ class GuoMeiList extends PureComponent {
       dataIndex: 'studentName',
     },
     {
-      title: '国籍',
-      dataIndex: 'nationality',
+      title: '身份证',
+      dataIndex: 'idCard',
     },
     {
-      title: '民族',
-      dataIndex: 'nation',
+      title: '出生日期',
+      dataIndex: 'birthDate',
     },
     {
       title: '性别',
       dataIndex: 'gender',
     },
     {
-      title: '证书编号',
-      dataIndex: 'certificateNumber',
-    },
-    {
-      title: '出生日期',
-      sorter: true,
-      dataIndex: 'birthDate',
-      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
-    },
-    {
       title: '专业',
       dataIndex: 'profession',
     },
     {
-      title: '申报级别',
-      dataIndex: 'declareLevel',
+      title: '组别',
+      dataIndex: 'groupLevel',
     },
     {
-      title: '考试级别',
-      dataIndex: 'examinationLevel',
+      title: '作品名称',
+      dataIndex: 'worksName',
     },
     {
-      title: '原级别',
-      dataIndex: 'originalLevel',
+      title: '辅导老师',
+      dataIndex: 'tutor',
     },
     {
-      title: '所在地',
-      dataIndex: 'nativePlace',
-    },
-    {
-      title: '考试时间',
-      dataIndex: 'examDate',
-      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
+      title: '获奖结果',
+      dataIndex: 'results',
     },
     {
       title: '操作',
@@ -194,7 +179,7 @@ class GuoMeiList extends PureComponent {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'guoMei/queryguoMeiList',
+      type: 'match/queryMatchList',
     });
   }
 
@@ -234,7 +219,7 @@ class GuoMeiList extends PureComponent {
   handleUpdate = fields => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'activity/updateActivity',
+      type: 'match/updateMatchInfo',
       payload: {
         id: fields.activityId,
         activityName: fields.activityName,
@@ -250,7 +235,7 @@ class GuoMeiList extends PureComponent {
 
   render() {
     const {
-      guoMei: { data },
+      match: { data },
       loading,
     } = this.props;
     const { list = [], pagination } = data;
@@ -281,7 +266,7 @@ class GuoMeiList extends PureComponent {
           </div>
         </Card>
         {stepFormValues && Object.keys(stepFormValues).length ? (
-          <UpdateActivityForm
+          <UpdateMatchForm
             {...updateMethods}
             updateModalVisible={updateModalVisible}
             values={stepFormValues}
@@ -292,4 +277,4 @@ class GuoMeiList extends PureComponent {
   }
 }
 
-export default GuoMeiList;
+export default MatchList;

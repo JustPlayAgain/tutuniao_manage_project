@@ -1,12 +1,12 @@
 import {
-  tutuniaoGuoMeiList,
-  addtutuniaoGuoMei,
-  updatetutuniaoGuoMei,
-  importtutuniaoGuoMeiData,
-} from '@/services/guomeiService';
+  tutuniaoMatchList,
+  addtutuniaoMatch,
+  updatetutuniaoMatch,
+  deletetutuniaoMatch,
+} from '@/services/matchService';
 
 export default {
-  namespace: 'guoMei',
+  namespace: 'match',
 
   state: {
     data: {
@@ -16,30 +16,30 @@ export default {
   },
 
   effects: {
-    *queryguoMeiList({ payload }, { call, put }) {
-      const response = yield call(tutuniaoGuoMeiList, payload);
+    *queryMatchList({ payload }, { call, put }) {
+      const response = yield call(tutuniaoMatchList, payload);
       yield put({
         type: 'save',
         payload: response,
       });
     },
-    *addGuoMeiInfo({ payload }, { call, put }) {
-      const response = yield call(addtutuniaoGuoMei, payload);
+    *addMatchInfo({ payload }, { call, put }) {
+      const response = yield call(addtutuniaoMatch, payload);
       yield put({
         type: 'add',
         payload: response,
       });
     },
-    *updateGuoMeiInfo({ payload, callback }, { call, put }) {
-      const response = yield call(updatetutuniaoGuoMei, payload);
+    *updateMatchInfo({ payload, callback }, { call, put }) {
+      const response = yield call(updatetutuniaoMatch, payload);
       yield put({
         type: 'save',
         payload: response,
       });
       if (callback) callback();
     },
-    *importGuoMeiInfo({ payload, callback }, { call, put }) {
-      const response = yield call(importtutuniaoGuoMeiData, payload);
+    *deleteMatchInfo({ payload, callback }, { call, put }) {
+      const response = yield call(deletetutuniaoMatch, payload);
       yield put({
         type: 'save',
         payload: response,

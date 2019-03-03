@@ -14,7 +14,7 @@ export default {
   'menu.guoMei': '国美证书',
   'menu.guoMei.searchtable': '学员列表页',
   'menu.news': '新闻',
-  'menu.news.searchtable': '新闻列表页',
+  'menu.news.newslist': '新闻列表页',
   'menu.list': '列表',
   'menu.list.basiclist': '标准列表',
   'menu.list.searchtable': '列表',
@@ -42,4 +42,6 @@ export default {
   'menu.activity': '活动',
   'menu.activity.list': '活动列表页',
   'menu.activity.add': '新增活动',
+  'menu.match': '图图鸟证书',
+  'menu.match.list': '证书列表',
 };

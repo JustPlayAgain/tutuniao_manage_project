@@ -42,9 +42,9 @@ export default [
         name: 'guoMei',
         routes: [
           {
-            path: '/guoMei/table-list',
+            path: '/guoMei/guoMeiList',
             name: 'searchtable',
-            component: './List/TableList',
+            component: './GuoMei/guoMeiList',
           },
         ],
       },
@@ -54,9 +54,21 @@ export default [
         name: 'news',
         routes: [
           {
-            path: '/news/table-list',
-            name: 'searchtable',
-            component: './List/TableList',
+            path: '/news/newsList',
+            name: 'newslist',
+            component: './News/newsList',
+          },
+        ],
+      },
+      {
+        path: '/match',
+        icon: 'table',
+        name: 'match',
+        routes: [
+          {
+            path: '/match/matchList',
+            name: 'list',
+            component: './Match/matchList',
           },
         ],
       },
