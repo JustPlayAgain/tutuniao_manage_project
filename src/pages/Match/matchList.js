@@ -26,10 +26,15 @@ class UpdateMatchForm extends PureComponent {
     super(props);
     this.state = {
       formValues: {
-        activityId: props.values.id,
-        activityName: props.values.activityName,
-        activityCode: props.values.activityCode,
-        activityDate: props.values.activityDate,
+        matchId: props.values.id,
+        studentName: props.values.studentName,
+        idCard: props.values.idCard,
+        gender: props.values.gender,
+        profession: props.values.profession,
+        groupLevel: props.values.groupLevel,
+        worksName: props.values.worksName,
+        tutor: props.values.tutor,
+        birthDate: props.values.birthDate,
       },
     };
   }
@@ -84,29 +89,84 @@ class UpdateMatchForm extends PureComponent {
                   message: '请输入学员姓名',
                 },
               ],
-              initialValue: formValues.activityName,
-            })(<Input placeholder="请输入活动名称" />)}
+              initialValue: formValues.studentName,
+            })(<Input placeholder="请输入学员姓名" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="活动Code">
-            {getFieldDecorator('activityCode', {
+          <FormItem {...formItemLayout} label="身份证">
+            {getFieldDecorator('idCard', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动Code',
+                  message: '请输入身份证',
                 },
               ],
-              initialValue: formValues.activityCode,
-            })(<Input placeholder="请输入活动Code" />)}
+              initialValue: formValues.idCard,
+            })(<Input placeholder="请输入身份证" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="活动时间">
-            {getFieldDecorator('activityDate', {
+          <FormItem {...formItemLayout} label="性别">
+            {getFieldDecorator('gender', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动时间',
+                  message: '请输入性别',
                 },
               ],
-              initialValue: moment(formValues.activityDate),
+              initialValue: formValues.gender,
+            })(<Input placeholder="请输入性别" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="专业">
+            {getFieldDecorator('profession', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入专业',
+                },
+              ],
+              initialValue: formValues.profession,
+            })(<Input placeholder="请输入专业" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="组别">
+            {getFieldDecorator('groupLevel', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入组别',
+                },
+              ],
+              initialValue: formValues.groupLevel,
+            })(<Input placeholder="请输入组别" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="作品名称">
+            {getFieldDecorator('worksName', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入作品名称',
+                },
+              ],
+              initialValue: formValues.worksName,
+            })(<Input placeholder="请输入作品名称" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="辅导老师">
+            {getFieldDecorator('tutor', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入辅导老师',
+                },
+              ],
+              initialValue: formValues.tutor,
+            })(<Input placeholder="请输入辅导老师" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="出生日期">
+            {getFieldDecorator('birthDate', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入出生日期',
+                },
+              ],
+              initialValue: moment(formValues.birthDate),
             })(<DatePicker format="YYYY-MM-DD" />)}
           </FormItem>
         </Form>

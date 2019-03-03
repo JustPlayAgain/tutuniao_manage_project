@@ -41,6 +41,8 @@ class UpdateActivityForm extends PureComponent {
       const fieldsValue = {
         ...values,
         activityId: formValues.activityId,
+        activityName: values.activityName,
+        activityCode: values.activityCode,
         activityDate: values.activityDate.format('YYYY-MM-DD'),
       };
       if (!err) {
@@ -223,11 +225,17 @@ class ActivityList extends PureComponent {
         activityCode: fields.activityCode,
         activityDate: fields.activityDate,
       },
+      callback: () => {
+        message.success('修改成功');
+        dispatch({
+          type: 'activity/activityList',
+        });
+      },
     });
 
-    message.success('修改成功');
+    // message.success('修改成功');
     this.handleUpdateModalVisible();
-    window.history.go(0);
+    // window.history.go(0);
   };
 
   render() {

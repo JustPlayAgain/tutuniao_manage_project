@@ -27,7 +27,7 @@ export async function tutuniaoAddActivity(params) {
 
 export async function tutuniaoUpdateActivity(params) {
   return request(`${httpTitle}/activity/updateActivity?${stringify(params)}`, {
-    method: 'update',
+    method: 'GET',
     credentials: 'include',
   });
 }
