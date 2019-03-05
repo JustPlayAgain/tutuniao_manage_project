@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import Redirect from 'umi/redirect';
 import activityList from './activityList.less';
 
 const FormItem = Form.Item;
@@ -128,6 +129,7 @@ class ActivityList extends PureComponent {
     selectedRows: [],
     updateModalVisible: false,
     stepFormValues: {},
+    isLogin: false,
   };
 
   columns = [
@@ -225,11 +227,17 @@ class ActivityList extends PureComponent {
         activityCode: fields.activityCode,
         activityDate: fields.activityDate,
       },
-      callback: () => {
-        message.success('修改成功');
-        dispatch({
-          type: 'activity/activityList',
-        });
+      callback: data => {
+        const { status } = data;
+
+        if (status === '1005') {
+          this.state.isLogin = true;
+        } else {
+          message.success('修改成功');
+          dispatch({
+            type: 'activity/activityList',
+          });
+        }
       },
     });
 
@@ -244,7 +252,7 @@ class ActivityList extends PureComponent {
       loading,
     } = this.props;
     const { list = [], pagination } = data;
-    const { selectedRows, stepFormValues, updateModalVisible } = this.state;
+    const { selectedRows, stepFormValues, updateModalVisible, isLogin } = this.state;
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
@@ -255,6 +263,9 @@ class ActivityList extends PureComponent {
       handleUpdateModalVisible: this.handleUpdateModalVisible,
       handleUpdate: this.handleUpdate,
     };
+    if (isLogin) {
+      return <Redirect to="/user/login" />;
+    }
     return (
       <PageHeaderWrapper title="活动列表页">
         <Card bordered={false}>
