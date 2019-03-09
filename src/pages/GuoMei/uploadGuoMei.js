@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Form, message, Button, Upload, Icon } from 'antd';
+import { Form, message, Button, Upload, Icon, Card } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import guoMeiLess from './uploadGuoMei.less';
 
 @connect(({ guoMei, loading }) => ({
   guoMei,
@@ -24,16 +25,21 @@ class GuoMeiUploadFile extends PureComponent {
           message.success(`${info.file.name} file uploaded successfully`);
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
+          console.log(`${info.file.response.message}`);
         }
       },
     };
     return (
       <PageHeaderWrapper title="批量添加国美学院">
-        <Upload {...props}>
-          <Button>
-            <Icon type="upload" /> Click to Upload
-          </Button>
-        </Upload>
+        <Card bordered={false}>
+          <div className={guoMeiLess.div}>
+            <Upload {...props}>
+              <Button>
+                <Icon type="upload" /> Click to Upload
+              </Button>
+            </Upload>
+          </div>
+        </Card>
       </PageHeaderWrapper>
     );
   }

@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import activityList from './guoMei.less';
+import guoMeiLess from './guoMei.less';
 
 const FormItem = Form.Item;
 
@@ -187,6 +187,7 @@ class GuoMeiList extends PureComponent {
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
         </Fragment>
       ),
+      width: 200,
     },
   ];
 
@@ -204,32 +205,6 @@ class GuoMeiList extends PureComponent {
       stepFormValues: record || {},
     });
   };
-
-  // handleStandardTableChange = (pagination, filtersArg, sorter) => {
-  //   const { dispatch } = this.props;
-  //   const { formValues } = this.state;
-  //
-  //   const filters = Object.keys(filtersArg).reduce((obj, key) => {
-  //     const newObj = { ...obj };
-  //     newObj[key] = getValue(filtersArg[key]);
-  //     return newObj;
-  //   }, {});
-  //
-  //   const params = {
-  //     currentPage: pagination.current,
-  //     pageSize: pagination.pageSize,
-  //     ...formValues,
-  //     ...filters,
-  //   };
-  //   if (sorter.field) {
-  //     params.sorter = `${sorter.field}_${sorter.order}`;
-  //   }
-  //
-  //   dispatch({
-  //     type: 'activity/activityList',
-  //     payload: params,
-  //   });
-  // };
 
   handleUpdate = fields => {
     const { dispatch } = this.props;
@@ -268,13 +243,14 @@ class GuoMeiList extends PureComponent {
     return (
       <PageHeaderWrapper title="活动列表页">
         <Card bordered={false}>
-          <div className={activityList.tableList}>
+          <div className={guoMeiLess.tableList}>
             <Table
               selectedRows={selectedRows}
               loading={loading}
               dataSource={list}
               columns={this.columns}
               pagination={paginationProps}
+              scroll={{ x: 1000 }}
               // onSelectRow={this.handleSelectRows}
               // onChange={this.handleStandardTableChange}
             />

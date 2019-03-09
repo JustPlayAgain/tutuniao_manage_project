@@ -5,23 +5,24 @@ import { Form, Input, Card, DatePicker, Button } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 const FormItem = Form.Item;
-@connect(({ activity, loading }) => ({
-  activity,
-  submitting: loading.effects['activity/addActivity'],
+@connect(({ guoMei, loading }) => ({
+  guoMei,
+  submitting: loading.effects['guoMei/addGuoMeiInfo'],
 }))
 @Form.create()
-class ActivityForms extends PureComponent {
+class GuoMeiForms extends PureComponent {
   handleSubmit = e => {
     const { dispatch, form } = this.props;
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
         ...values,
-        activityDate: values.activityDate.format('YYYY-MM-DD'),
+        birthDate: values.birthDate.format('YYYY-MM-DD'),
+        examDate: values.examDate.format('YYYY-MM-DD'),
       };
       if (!err) {
         dispatch({
-          type: 'activity/addActivity',
+          type: 'guoMei/addGuoMeiInfo',
           payload: fieldsValue,
         });
       }
@@ -30,7 +31,7 @@ class ActivityForms extends PureComponent {
 
   render() {
     const {
-      activity: { data },
+      guoMei: { data },
       submitting,
       form,
     } = this.props;
@@ -59,35 +60,126 @@ class ActivityForms extends PureComponent {
       return <Redirect to="/guoMei/guoMeiList" />;
     }
     return (
-      <PageHeaderWrapper title="添加国美学院">
+      <PageHeaderWrapper title="添加国美学员">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-            <FormItem {...formItemLayout} label="活动名称">
-              {getFieldDecorator('activityName', {
+            <FormItem {...formItemLayout} label="学员名称">
+              {getFieldDecorator('studentName', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入活动名称',
+                    message: '请输入学员名称',
                   },
                 ],
-              })(<Input placeholder="请输入活动名称" />)}
+              })(<Input placeholder="请输入学员名称" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="活动Code">
-              {getFieldDecorator('activityCode', {
+            <FormItem {...formItemLayout} label="学员国籍">
+              {getFieldDecorator('nationality', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入活动Code',
+                    message: '请输入学员国籍',
                   },
                 ],
-              })(<Input placeholder="请输入活动Code" />)}
+              })(<Input placeholder="请输入学员国籍" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="活动时间">
-              {getFieldDecorator('activityDate', {
+            <FormItem {...formItemLayout} label="学员民族">
+              {getFieldDecorator('nation', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入活动时间',
+                    message: '请输入学员民族',
+                  },
+                ],
+              })(<Input placeholder="请输入学员民族" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员性别">
+              {getFieldDecorator('gender', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员性别',
+                  },
+                ],
+              })(<Input placeholder="请输入学员性别" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员出生日期">
+              {getFieldDecorator('birthDate', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员出生日期',
+                  },
+                ],
+              })(<DatePicker format="YYYY-MM-DD" />)}
+            </FormItem>
+
+            <FormItem {...formItemLayout} label="学员证书编号">
+              {getFieldDecorator('certificateNumber', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员证书编号',
+                  },
+                ],
+              })(<Input placeholder="请输入学员证书编号" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员专业">
+              {getFieldDecorator('profession', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员专业',
+                  },
+                ],
+              })(<Input placeholder="请输入学员专业" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员申报级别">
+              {getFieldDecorator('declareLevel', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员申报级别',
+                  },
+                ],
+              })(<Input placeholder="请输入学员申报级别" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员考试级别">
+              {getFieldDecorator('examinationLevel', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员考试级别',
+                  },
+                ],
+              })(<Input placeholder="请输入学员考试级别" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员原级别">
+              {getFieldDecorator('originalLevel', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员原级别',
+                  },
+                ],
+              })(<Input placeholder="请输入学员原级别" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员所在地">
+              {getFieldDecorator('nativePlace', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员所在地',
+                  },
+                ],
+              })(<Input placeholder="请输入学员所在地" />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员考试时间">
+              {getFieldDecorator('examDate', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入考试时间',
                   },
                 ],
               })(<DatePicker format="YYYY-MM-DD" />)}
@@ -103,4 +195,4 @@ class ActivityForms extends PureComponent {
     );
   }
 }
-export default ActivityForms;
+export default GuoMeiForms;
