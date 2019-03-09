@@ -1,9 +1,10 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
-import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
+import { Button, Card, Col, DatePicker, Form, Input, message, Modal, Row, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import activityList from './news.less';
+import styles from '../List/TableList.less';
 
 const FormItem = Form.Item;
 
@@ -221,6 +222,54 @@ class NewsList extends PureComponent {
     window.history.go(0);
   };
 
+  handleFormReset = () => {
+    const { form, dispatch } = this.props;
+    form.resetFields();
+
+    dispatch({
+      type: 'rule/fetch',
+      payload: {},
+    });
+  };
+
+  renderSimpleForm() {
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="文章名称">
+              {getFieldDecorator('newsTitle')(<Input placeholder="请输入文章名称" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="创建时间">
+              {getFieldDecorator('createDate')(
+                <DatePicker style={{ width: '100%' }} placeholder="请输入创建时间" />
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                重置
+              </Button>
+            </span>
+          </Col>
+        </Row>
+      </Form>
+    );
+  }
+
+  renderForm() {
+    return this.renderSimpleForm();
+  }
+
   render() {
     const {
       news: { data },
@@ -241,6 +290,7 @@ class NewsList extends PureComponent {
     return (
       <PageHeaderWrapper title="活动列表页">
         <Card bordered={false}>
+          <div className={styles.tableListForm}>{this.renderForm()}</div>
           <div className={activityList.tableList}>
             <Table
               selectedRows={selectedRows}

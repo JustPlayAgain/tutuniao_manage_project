@@ -1,13 +1,13 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
-import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
+import { Button, Card, Col, DatePicker, Form, Icon, Input, message, Modal, Row, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import Redirect from 'umi/redirect';
 import activityList from './match.less';
+import styles from '../List/TableList.less';
 
 const FormItem = Form.Item;
-
 // const getValue = obj =>
 //   Object.keys(obj)
 //     .map(key => obj[key])
@@ -315,6 +315,122 @@ class MatchList extends PureComponent {
     this.handleUpdateModalVisible();
   };
 
+  toggleForm = () => {
+    const { expandForm } = this.state;
+    this.setState({
+      expandForm: !expandForm,
+    });
+  };
+
+  handleFormReset = () => {
+    const { form, dispatch } = this.props;
+    form.resetFields();
+
+    dispatch({
+      type: 'rule/fetch',
+      payload: {},
+    });
+  };
+
+  renderSimpleForm() {
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="学生姓名">
+              {getFieldDecorator('studentName')(<Input placeholder="请输入学生姓名" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="身份证">
+              {getFieldDecorator('idCard')(<Input placeholder="请输入身份证" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                重置
+              </Button>
+              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+                展开 <Icon type="down" />
+              </a>
+            </span>
+          </Col>
+        </Row>
+      </Form>
+    );
+  }
+
+  renderAdvancedForm() {
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="学生姓名">
+              {getFieldDecorator('studentName')(<Input placeholder="请输入学生姓名" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="身份证">
+              {getFieldDecorator('idCard')(<Input placeholder="请输入身份证" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="专业">
+              {getFieldDecorator('profession')(<Input placeholder="请输入专业" />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="出生日期">
+              {getFieldDecorator('birthDate')(
+                <DatePicker style={{ width: '100%' }} placeholder="请输入出生日期" />
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="组别">
+              {getFieldDecorator('groupLevel')(<Input placeholder="请输入组别" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="辅导老师">
+              {getFieldDecorator('tutor')(<Input placeholder="请输入辅导老师" />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <div style={{ overflow: 'hidden' }}>
+          <div style={{ float: 'right', marginBottom: 24 }}>
+            <Button type="primary" htmlType="submit">
+              查询
+            </Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+              重置
+            </Button>
+            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+              收起 <Icon type="up" />
+            </a>
+          </div>
+        </div>
+      </Form>
+    );
+  }
+
+  renderForm() {
+    const { expandForm } = this.state;
+    return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
+  }
+
   render() {
     const {
       match: { data },
@@ -338,6 +454,7 @@ class MatchList extends PureComponent {
     return (
       <PageHeaderWrapper title="活动列表页">
         <Card bordered={false}>
+          <div className={styles.tableListForm}>{this.renderForm()}</div>
           <div className={activityList.tableList}>
             <Table
               selectedRows={selectedRows}
