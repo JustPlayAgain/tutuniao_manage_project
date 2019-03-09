@@ -1,12 +1,26 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
-import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Icon,
+  Input,
+  message,
+  Modal,
+  Row,
+  Select,
+  Table,
+} from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import guoMeiLess from './guoMei.less';
+import styles from '../List/TableList.less';
 
 const FormItem = Form.Item;
-
+const { Option } = Select;
 // const getValue = obj =>
 //   Object.keys(obj)
 //     .map(key => obj[key])
@@ -223,6 +237,128 @@ class GuoMeiList extends PureComponent {
     window.history.go(0);
   };
 
+  toggleForm = () => {
+    const { expandForm } = this.state;
+    this.setState({
+      expandForm: !expandForm,
+    });
+  };
+
+  handleFormReset = () => {
+    const { form, dispatch } = this.props;
+    form.resetFields();
+
+    dispatch({
+      type: 'rule/fetch',
+      payload: {},
+    });
+  };
+
+  renderSimpleForm() {
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="学生姓名">
+              {getFieldDecorator('studentName')(<Input placeholder="请输入学生姓名" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="证书编号">
+              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">
+                查询
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+                重置
+              </Button>
+              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+                展开 <Icon type="down" />
+              </a>
+            </span>
+          </Col>
+        </Row>
+      </Form>
+    );
+  }
+
+  renderAdvancedForm() {
+    const {
+      form: { getFieldDecorator },
+    } = this.props;
+    return (
+      <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="学生姓名">
+              {getFieldDecorator('studentName')(<Input placeholder="请输入学生姓名" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="证书编号">
+              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
+            </FormItem>
+          </Col>
+
+          <Col md={8} sm={24}>
+            <FormItem label="专业">
+              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入专业" />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="出生日期">
+              {getFieldDecorator('birthDate')(
+                <DatePicker style={{ width: '100%' }} placeholder="请输入出生日期" />
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="申报级别">
+              {getFieldDecorator('status3')(
+                <Select placeholder="请选择" style={{ width: '100%' }}>
+                  <Option value="0">级别1</Option>
+                  <Option value="1">级别2</Option>
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="民族">
+              {getFieldDecorator('nation')(<Input placeholder="请输入民族" />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <div style={{ overflow: 'hidden' }}>
+          <div style={{ float: 'right', marginBottom: 24 }}>
+            <Button type="primary" htmlType="submit">
+              查询
+            </Button>
+            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
+              重置
+            </Button>
+            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+              收起 <Icon type="up" />
+            </a>
+          </div>
+        </div>
+      </Form>
+    );
+  }
+
+  renderForm() {
+    const { expandForm } = this.state;
+    return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
+  }
+
   render() {
     const {
       guoMei: { data },
@@ -243,6 +379,7 @@ class GuoMeiList extends PureComponent {
     return (
       <PageHeaderWrapper title="活动列表页">
         <Card bordered={false}>
+          <div className={styles.tableListForm}>{this.renderForm()}</div>
           <div className={guoMeiLess.tableList}>
             <Table
               selectedRows={selectedRows}
