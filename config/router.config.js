@@ -80,6 +80,11 @@ export default [
             name: 'list',
             component: './Match/matchList',
           },
+          {
+            path: '/match/addMatch',
+            name: 'addMatch',
+            component: './Match/addMatch',
+          },
         ],
       },
       // list

@@ -44,6 +44,7 @@ export default {
   'menu.activity.add': '新增活动',
   'menu.match': '图图鸟证书',
   'menu.match.list': '证书列表',
+  'menu.match.addMatch': '新增学员',
   'menu.guoMei.add': '新增国美学员',
   'menu.guoMei.uploadFile': '批量添加国美学员',
 };
