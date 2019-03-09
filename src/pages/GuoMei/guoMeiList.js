@@ -377,7 +377,7 @@ class GuoMeiList extends PureComponent {
       handleUpdate: this.handleUpdate,
     };
     return (
-      <PageHeaderWrapper title="活动列表页">
+      <PageHeaderWrapper title="国美学院列表页">
         <Card bordered={false}>
           <div className={styles.tableListForm}>{this.renderForm()}</div>
           <div className={guoMeiLess.tableList}>
