@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import { Card, DatePicker, Form, Input, message, Modal, Table } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import Redirect from 'umi/redirect';
 import activityList from './match.less';
 
 const FormItem = Form.Item;
@@ -26,7 +27,7 @@ class UpdateMatchForm extends PureComponent {
     super(props);
     this.state = {
       formValues: {
-        matchId: props.values.id,
+        id: props.values.id,
         studentName: props.values.studentName,
         idCard: props.values.idCard,
         gender: props.values.gender,
@@ -45,8 +46,15 @@ class UpdateMatchForm extends PureComponent {
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
         ...values,
-        activityId: formValues.activityId,
-        activityDate: values.activityDate.format('YYYY-MM-DD'),
+        id: formValues.id,
+        studentName: values.studentName,
+        idCard: values.idCard,
+        gender: values.gender,
+        profession: values.profession,
+        groupLevel: values.groupLevel,
+        worksName: values.worksName,
+        tutor: values.tutor,
+        birthDate: values.birthDate.format('YYYY-MM-DD'),
       };
       if (!err) {
         handleUpdate(fieldsValue);
@@ -200,6 +208,7 @@ class MatchList extends PureComponent {
     {
       title: '出生日期',
       dataIndex: 'birthDate',
+      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
     {
       title: '性别',
@@ -281,16 +290,29 @@ class MatchList extends PureComponent {
     dispatch({
       type: 'match/updateMatchInfo',
       payload: {
-        id: fields.activityId,
-        activityName: fields.activityName,
-        activityCode: fields.activityCode,
-        activityDate: fields.activityDate,
+        id: fields.id,
+        studentName: fields.studentName,
+        idCard: fields.idCard,
+        gender: fields.gender,
+        profession: fields.profession,
+        groupLevel: fields.groupLevel,
+        worksName: fields.worksName,
+        tutor: fields.tutor,
+        birthDate: fields.birthDate,
+      },
+      callback: data => {
+        const { status } = data;
+        if (status === '1005') {
+          this.state.isLogin = true;
+        } else {
+          message.success('修改成功');
+          dispatch({
+            type: 'match/queryMatchList',
+          });
+        }
       },
     });
-
-    message.success('修改成功');
     this.handleUpdateModalVisible();
-    window.history.go(0);
   };
 
   render() {
@@ -299,7 +321,7 @@ class MatchList extends PureComponent {
       loading,
     } = this.props;
     const { list = [], pagination } = data;
-    const { selectedRows, stepFormValues, updateModalVisible } = this.state;
+    const { selectedRows, stepFormValues, updateModalVisible, isLogin } = this.state;
     const paginationProps = {
       showSizeChanger: true,
       showQuickJumper: true,
@@ -310,6 +332,9 @@ class MatchList extends PureComponent {
       handleUpdateModalVisible: this.handleUpdateModalVisible,
       handleUpdate: this.handleUpdate,
     };
+    if (isLogin) {
+      return <Redirect to="/user/login" />;
+    }
     return (
       <PageHeaderWrapper title="活动列表页">
         <Card bordered={false}>

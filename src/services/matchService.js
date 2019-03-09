@@ -14,19 +14,19 @@ export async function tutuniaoMatchList(params) {
 }
 
 export async function addtutuniaoMatch(params) {
-  return request(`${httpTitle}/guomei/insertguomeitemplate?${stringify(params)}`, {
+  return request(`${httpTitle}/match/insertmatchtemplate?${stringify(params)}`, {
     method: 'POST',
   });
 }
 
 export async function updatetutuniaoMatch(params) {
-  return request(`${httpTitle}/guomei/updateguomeitemplatebyid?${stringify(params)}`, {
+  return request(`${httpTitle}/match/updatematchtemplatebyid?${stringify(params)}`, {
     method: 'POST',
   });
 }
 
 export async function deletetutuniaoMatch(params) {
-  return request(`${httpTitle}/guomei/updateGuoMeiTemplateById?${stringify(params)}`, {
+  return request(`${httpTitle}/match/deletematchtemplatebyid?${stringify(params)}`, {
     method: 'POST',
   });
 }
