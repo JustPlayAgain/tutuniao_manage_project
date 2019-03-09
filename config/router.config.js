@@ -38,7 +38,7 @@ export default [
       },
       {
         path: '/guoMei',
-        icon: 'table',
+        icon: 'form',
         name: 'guoMei',
         routes: [
           {
@@ -46,11 +46,21 @@ export default [
             name: 'searchtable',
             component: './GuoMei/guoMeiList',
           },
+          {
+            path: '/guoMei/add',
+            name: 'add',
+            component: './GuoMei/addGuoMei',
+          },
+          {
+            path: '/guoMei/uploadFile',
+            name: 'uploadFile',
+            component: './GuoMei/uploadGuoMei',
+          },
         ],
       },
       {
         path: '/news',
-        icon: 'table',
+        icon: 'profile',
         name: 'news',
         routes: [
           {
@@ -62,7 +72,7 @@ export default [
       },
       {
         path: '/match',
-        icon: 'table',
+        icon: 'dashboard',
         name: 'match',
         routes: [
           {

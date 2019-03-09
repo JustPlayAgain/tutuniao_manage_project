@@ -39,4 +39,6 @@ export default {
   'menu.activity': '活动',
   'menu.activity.list': '活动列表页',
   'menu.activity.add': '新增活动',
+  'menu.guoMei.add': '新增国美学员',
+  'menu.guoMei.uploadFile': '批量添加国美学员',
 };

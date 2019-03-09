@@ -13,7 +13,7 @@ const FormItem = Form.Item;
 //     .join(',');
 
 @Form.create()
-class UpdateActivityForm extends PureComponent {
+class UpdateGuoMeiForm extends PureComponent {
   static defaultProps = {
     handleUpdate: () => {},
     handleUpdateModalVisible: () => {},
@@ -281,7 +281,7 @@ class GuoMeiList extends PureComponent {
           </div>
         </Card>
         {stepFormValues && Object.keys(stepFormValues).length ? (
-          <UpdateActivityForm
+          <UpdateGuoMeiForm
             {...updateMethods}
             updateModalVisible={updateModalVisible}
             values={stepFormValues}
