@@ -257,8 +257,36 @@ class ActivityList extends PureComponent {
     const { form, dispatch } = this.props;
     form.resetFields();
     dispatch({
-      type: 'rule/fetch',
+      type: 'activity/activityList',
       payload: {},
+    });
+  };
+
+  handleSearch = e => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+
+      const values = {
+        ...fieldsValue,
+        currentPage: 0,
+        pageSize: 10,
+        activityDate:
+          fieldsValue.activityDate === undefined
+            ? fieldsValue.activityDate
+            : fieldsValue.activityDate.format('YYYY-MM-DD'),
+      };
+      //
+      // this.setState({
+      //   formValues: values,
+      // });
+
+      dispatch({
+        type: 'activity/activityList',
+        payload: values,
+      });
     });
   };
 
@@ -271,12 +299,12 @@ class ActivityList extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="活动名称">
-              {getFieldDecorator('name')(<Input placeholder="请输入活动名称" />)}
+              {getFieldDecorator('activityName')(<Input placeholder="请输入活动名称" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="活动日期">
-              {getFieldDecorator('date')(
+              {getFieldDecorator('activityDate')(
                 <DatePicker style={{ width: '100%' }} placeholder="请输入活动日期" />
               )}
             </FormItem>
@@ -311,6 +339,44 @@ class ActivityList extends PureComponent {
       showSizeChanger: true,
       showQuickJumper: true,
       ...pagination,
+      onShowSizeChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            currentPage: pageIndex,
+            pageSize,
+            activityDate:
+              fieldsValue.activityDate === undefined
+                ? fieldsValue.activityDate
+                : fieldsValue.activityDate.format('YYYY-MM-DD'),
+          };
+          dispatch({
+            type: 'activity/activityList',
+            payload: values,
+          });
+        });
+      },
+      onChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            currentPage: pageIndex,
+            pageSize,
+            activityDate:
+              fieldsValue.activityDate === undefined
+                ? fieldsValue.activityDate
+                : fieldsValue.activityDate.format('YYYY-MM-DD'),
+          };
+          dispatch({
+            type: 'activity/activityList',
+            payload: values,
+          });
+        });
+      },
     };
     const updateMethods = {
       dispatch: this.dispatch,

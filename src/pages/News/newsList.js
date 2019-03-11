@@ -131,6 +131,14 @@ class NewsList extends PureComponent {
 
   columns = [
     {
+      title: '跳转链接',
+      dataIndex: 'newsUrl',
+    },
+    {
+      title: '缩略图地址',
+      dataIndex: 'newsPic',
+    },
+    {
       title: '活动名称',
       dataIndex: 'newsTitle',
     },
@@ -298,6 +306,7 @@ class NewsList extends PureComponent {
               dataSource={list}
               columns={this.columns}
               pagination={paginationProps}
+              scroll={{ x: 1 }}
               // onSelectRow={this.handleSelectRows}
               // onChange={this.handleStandardTableChange}
             />

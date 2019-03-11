@@ -44,7 +44,13 @@ export default {
       if (action.payload.status === 'ok') {
         return {
           ...state,
-          data: { list: action.payload.data.t, pagination: { total: action.payload.data.total } },
+          data: {
+            list: action.payload.data.t,
+            pagination: {
+              total: action.payload.data.total,
+              pageSize: action.payload.data.pageSize,
+            },
+          },
         };
       }
       return {

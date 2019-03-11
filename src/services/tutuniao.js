@@ -7,15 +7,22 @@ const httpTitle = getHttpTitle();
 export async function tutuniaoActivityList(params) {
   // return request(`/api/rule?${stringify(params)}`);
   // currentPage=1&pageSize=20
+  const pageSize = 10;
+  const pageIndex = 0;
   if (params != null) {
-    return request(
-      `${httpTitle}/activity/queryActivityList?pageSize=${params.pageSize}&pageIndex=${
-        params.currentPage
-      }&${stringify(params)}`,
-      { method: 'GET' }
-    );
+    const tmpParams = {
+      ...params,
+      pageSize: params.pageSize === undefined ? pageSize : params.pageSize,
+      pageIndex: params.currentPage === undefined ? pageIndex : params.currentPage,
+    };
+    return request(`${httpTitle}/activity/queryActivityList?${stringify(tmpParams)}`, {
+      method: 'GET',
+    });
   }
-  return request(`${httpTitle}/activity/queryActivityList`, { method: 'GET' });
+  return request(
+    `${httpTitle}/activity/queryActivityList?pageSize=${pageSize}&pageIndex=${pageIndex}`,
+    { method: 'GET' }
+  );
 }
 
 export async function tutuniaoAddActivity(params) {
