@@ -36,7 +36,7 @@ export default {
         type: 'save',
         payload: response,
       });
-      if (callback) callback();
+      if (callback) callback(response);
     },
     *deleteMatchInfo({ payload, callback }, { call, put }) {
       const response = yield call(deletetutuniaoMatch, payload);

@@ -5,7 +5,6 @@ import { Button, Card, Col, DatePicker, Form, Icon, Input, message, Modal, Row, 
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import Redirect from 'umi/redirect';
 import activityList from './match.less';
-import styles from '../List/TableList.less';
 
 const FormItem = Form.Item;
 // const getValue = obj =>
@@ -350,7 +349,7 @@ class MatchList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <span className={styles.submitButtons}>
+            <span className={activityList.submitButtons}>
               <Button type="primary" htmlType="submit">
                 查询
               </Button>
@@ -452,9 +451,9 @@ class MatchList extends PureComponent {
       return <Redirect to="/user/login" />;
     }
     return (
-      <PageHeaderWrapper title="图图鸟学员列表">
+      <PageHeaderWrapper title="结业学员列表">
         <Card bordered={false}>
-          <div className={styles.tableListForm}>{this.renderForm()}</div>
+          <div className={activityList.tableListForm}>{this.renderForm()}</div>
           <div className={activityList.tableList}>
             <Table
               selectedRows={selectedRows}
@@ -462,6 +461,7 @@ class MatchList extends PureComponent {
               dataSource={list}
               columns={this.columns}
               pagination={paginationProps}
+              scroll={{ x: 1000 }}
               // onSelectRow={this.handleSelectRows}
               // onChange={this.handleStandardTableChange}
             />

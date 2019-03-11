@@ -288,7 +288,7 @@ class NewsList extends PureComponent {
       handleUpdate: this.handleUpdate,
     };
     return (
-      <PageHeaderWrapper title="活动列表页">
+      <PageHeaderWrapper title="新闻列表页">
         <Card bordered={false}>
           <div className={styles.tableListForm}>{this.renderForm()}</div>
           <div className={activityList.tableList}>

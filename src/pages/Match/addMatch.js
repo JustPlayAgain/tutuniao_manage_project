@@ -11,7 +11,8 @@ const FormItem = Form.Item;
 }))
 @Form.create()
 class matchForms extends PureComponent {
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const { dispatch, form } = this.props;
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
@@ -58,7 +59,7 @@ class matchForms extends PureComponent {
       return <Redirect to="/match/matchList" />;
     }
     return (
-      <PageHeaderWrapper title="添加图图鸟学员">
+      <PageHeaderWrapper title="添加结业学员">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="学员名称">
@@ -153,7 +154,7 @@ class matchForms extends PureComponent {
             </FormItem>
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
-                G 保存
+                保存
               </Button>
             </FormItem>
           </Form>
