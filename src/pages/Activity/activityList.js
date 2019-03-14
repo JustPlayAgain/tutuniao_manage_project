@@ -142,19 +142,20 @@ class ActivityList extends PureComponent {
   columns = [
     {
       title: '活动名称',
-      sorter: true,
+      // sorter: true,
       dataIndex: 'activityName',
     },
     {
       title: '活动Code',
-      sorter: true,
+      // sorter: true,
       dataIndex: 'activityCode',
     },
     {
       title: '活动日期',
-      sorter: true,
+      // sorter: true,
       dataIndex: 'activityDate',
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
+      width: 120,
     },
     {
       title: '创建人',
@@ -271,7 +272,7 @@ class ActivityList extends PureComponent {
 
       const values = {
         ...fieldsValue,
-        currentPage: 0,
+        pageIndex: 0,
         pageSize: 10,
         activityDate:
           fieldsValue.activityDate === undefined
@@ -345,7 +346,7 @@ class ActivityList extends PureComponent {
           if (err) return;
           const values = {
             ...fieldsValue,
-            currentPage: pageIndex,
+            pageIndex: 0,
             pageSize,
             activityDate:
               fieldsValue.activityDate === undefined
@@ -364,7 +365,7 @@ class ActivityList extends PureComponent {
           if (err) return;
           const values = {
             ...fieldsValue,
-            currentPage: pageIndex,
+            pageIndex,
             pageSize,
             activityDate:
               fieldsValue.activityDate === undefined
@@ -397,6 +398,7 @@ class ActivityList extends PureComponent {
               dataSource={list}
               columns={this.columns}
               pagination={paginationProps}
+              scroll={{ x: 1000 }}
               // onSelectRow={this.handleSelectRows}
               // onChange={this.handleStandardTableChange}
             />

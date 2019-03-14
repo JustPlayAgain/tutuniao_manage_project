@@ -143,65 +143,36 @@ class GuoMeiList extends PureComponent {
   };
 
   columns = [
-    {
-      title: '学员姓名',
-      dataIndex: 'studentName',
-    },
-    {
-      title: '国籍',
-      dataIndex: 'nationality',
-    },
-    {
-      title: '民族',
-      dataIndex: 'nation',
-    },
-    {
-      title: '性别',
-      dataIndex: 'gender',
-    },
-    {
-      title: '证书编号',
-      dataIndex: 'certificateNumber',
-    },
+    { title: '学员姓名', dataIndex: 'studentName', key: 'name', fixed: 'left' },
+    { title: '国籍', dataIndex: 'nationality' },
+    { title: '民族', dataIndex: 'nation' },
+    { title: '性别', dataIndex: 'gender' },
+    { title: '证书编号', dataIndex: 'certificateNumber' },
     {
       title: '出生日期',
-      sorter: true,
       dataIndex: 'birthDate',
+      width: 120,
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
-    {
-      title: '专业',
-      dataIndex: 'profession',
-    },
-    {
-      title: '申报级别',
-      dataIndex: 'declareLevel',
-    },
-    {
-      title: '考试级别',
-      dataIndex: 'examinationLevel',
-    },
-    {
-      title: '原级别',
-      dataIndex: 'originalLevel',
-    },
-    {
-      title: '所在地',
-      dataIndex: 'nativePlace',
-    },
+    { title: '专业', dataIndex: 'profession' },
+    { title: '申报级别', dataIndex: 'declareLevel' },
+    { title: '考试级别', dataIndex: 'examinationLevel' },
+    { title: '原级别', dataIndex: 'originalLevel' },
+    { title: '所在地', dataIndex: 'nativePlace' },
     {
       title: '考试时间',
       dataIndex: 'examDate',
+      width: 120,
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
     {
       title: '操作',
+      fixed: 'right',
       render: (text, record) => (
         <Fragment>
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
         </Fragment>
       ),
-      width: 200,
     },
   ];
 
@@ -251,6 +222,34 @@ class GuoMeiList extends PureComponent {
     dispatch({
       type: 'rule/fetch',
       payload: {},
+    });
+  };
+
+  handleSearch = e => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+
+      const values = {
+        ...fieldsValue,
+        pageIndex: 0,
+        pageSize: 10,
+        birthDate:
+          fieldsValue.birthDate === undefined
+            ? fieldsValue.birthDate
+            : fieldsValue.birthDate.format('YYYY-MM-DD'),
+      };
+      //
+      // this.setState({
+      //   formValues: values,
+      // });
+
+      dispatch({
+        type: 'guoMei/queryguoMeiList',
+        payload: values,
+      });
     });
   };
 
@@ -370,6 +369,44 @@ class GuoMeiList extends PureComponent {
       showSizeChanger: true,
       showQuickJumper: true,
       ...pagination,
+      onShowSizeChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            pageIndex: 0,
+            pageSize,
+            birthDate:
+              fieldsValue.birthDate === undefined
+                ? fieldsValue.birthDate
+                : fieldsValue.birthDate.format('YYYY-MM-DD'),
+          };
+          dispatch({
+            type: 'guoMei/queryguoMeiList',
+            payload: values,
+          });
+        });
+      },
+      onChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            pageIndex,
+            pageSize,
+            birthDate:
+              fieldsValue.birthDate === undefined
+                ? fieldsValue.birthDate
+                : fieldsValue.birthDate.format('YYYY-MM-DD'),
+          };
+          dispatch({
+            type: 'guoMei/queryguoMeiList',
+            payload: values,
+          });
+        });
+      },
     };
     const updateMethods = {
       dispatch: this.dispatch,

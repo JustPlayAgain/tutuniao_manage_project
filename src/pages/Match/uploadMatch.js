@@ -13,7 +13,7 @@ class GuoMeiUploadFile extends PureComponent {
   render() {
     const props = {
       name: 'file',
-      action: 'http://www.tutuniao.com:8008/tutuniao/guomei/importguomeidata',
+      action: 'http://www.tutuniao.com:8008/tutuniao/match/importMatchData',
       headers: {
         authorization: 'authorization-text',
       },
@@ -30,7 +30,7 @@ class GuoMeiUploadFile extends PureComponent {
       },
     };
     return (
-      <PageHeaderWrapper title="批量添加国美学院">
+      <PageHeaderWrapper title="批量添加结业学员">
         <Card bordered={false}>
           <div className={guoMeiLess.div}>
             <Upload {...props}>

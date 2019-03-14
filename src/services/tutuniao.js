@@ -13,7 +13,7 @@ export async function tutuniaoActivityList(params) {
     const tmpParams = {
       ...params,
       pageSize: params.pageSize === undefined ? pageSize : params.pageSize,
-      pageIndex: params.currentPage === undefined ? pageIndex : params.currentPage,
+      pageIndex: params.pageIndex === undefined ? pageIndex : params.pageIndex,
     };
     return request(`${httpTitle}/activity/queryActivityList?${stringify(tmpParams)}`, {
       method: 'GET',

@@ -85,6 +85,11 @@ export default [
             name: 'addMatch',
             component: './Match/addMatch',
           },
+          {
+            path: '/match/uploadFile',
+            name: 'uploadFile',
+            component: './Match/uploadMatch',
+          },
         ],
       },
       // // list

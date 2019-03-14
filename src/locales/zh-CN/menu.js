@@ -43,6 +43,7 @@ export default {
   'menu.match': '结业证书',
   'menu.match.list': '证书列表',
   'menu.match.addMatch': '新增学员',
+  'menu.match.uploadFile': '批量添加结业学员',
   'menu.guoMei': '国美证书',
   'menu.guoMei.searchtable': '国美学院列表页',
   'menu.guoMei.add': '国美大赛学员',

@@ -196,45 +196,23 @@ class MatchList extends PureComponent {
   };
 
   columns = [
-    {
-      title: '学员姓名',
-      dataIndex: 'studentName',
-    },
-    {
-      title: '身份证',
-      dataIndex: 'idCard',
-    },
+    { title: '学员姓名', dataIndex: 'studentName', fixed: 'left' },
+    { title: '身份证', dataIndex: 'idCard' },
     {
       title: '出生日期',
       dataIndex: 'birthDate',
+      width: 120,
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
-    {
-      title: '性别',
-      dataIndex: 'gender',
-    },
-    {
-      title: '专业',
-      dataIndex: 'profession',
-    },
-    {
-      title: '组别',
-      dataIndex: 'groupLevel',
-    },
-    {
-      title: '作品名称',
-      dataIndex: 'worksName',
-    },
-    {
-      title: '辅导老师',
-      dataIndex: 'tutor',
-    },
-    {
-      title: '获奖结果',
-      dataIndex: 'results',
-    },
+    { title: '性别', dataIndex: 'gender' },
+    { title: '专业', dataIndex: 'profession' },
+    { title: '组别', dataIndex: 'groupLevel' },
+    { title: '作品名称', dataIndex: 'worksName' },
+    { title: '辅导老师', dataIndex: 'tutor' },
+    { title: '获奖结果', dataIndex: 'results' },
     {
       title: '操作',
+      fixed: 'right',
       render: (text, record) => (
         <Fragment>
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
@@ -284,6 +262,34 @@ class MatchList extends PureComponent {
   //   });
   // };
 
+  handleSearch = e => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+
+      const values = {
+        ...fieldsValue,
+        pageIndex: 0,
+        pageSize: 10,
+        birthDate:
+          fieldsValue.birthDate === undefined
+            ? fieldsValue.birthDate
+            : fieldsValue.birthDate.format('YYYY-MM-DD'),
+      };
+      //
+      // this.setState({
+      //   formValues: values,
+      // });
+
+      dispatch({
+        type: 'match/queryMatchList',
+        payload: values,
+      });
+    });
+  };
+
   handleUpdate = fields => {
     const { dispatch } = this.props;
     dispatch({
@@ -326,7 +332,7 @@ class MatchList extends PureComponent {
     form.resetFields();
 
     dispatch({
-      type: 'rule/fetch',
+      type: 'match/queryMatchList',
       payload: {},
     });
   };
@@ -441,6 +447,44 @@ class MatchList extends PureComponent {
       showSizeChanger: true,
       showQuickJumper: true,
       ...pagination,
+      onShowSizeChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            pageIndex: 0,
+            pageSize,
+            birthDate:
+              fieldsValue.birthDate === undefined
+                ? fieldsValue.birthDate
+                : fieldsValue.birthDate.format('YYYY-MM-DD'),
+          };
+          dispatch({
+            type: 'match/queryMatchList',
+            payload: values,
+          });
+        });
+      },
+      onChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            pageIndex,
+            pageSize,
+            birthDate:
+              fieldsValue.birthDate === undefined
+                ? fieldsValue.birthDate
+                : fieldsValue.birthDate.format('YYYY-MM-DD'),
+          };
+          dispatch({
+            type: 'match/queryMatchList',
+            payload: values,
+          });
+        });
+      },
     };
     const updateMethods = {
       dispatch: this.dispatch,
