@@ -308,7 +308,7 @@ class GuoMeiList extends PureComponent {
 
           <Col md={8} sm={24}>
             <FormItem label="专业">
-              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入专业" />)}
+              {getFieldDecorator('profession')(<Input placeholder="请输入专业" />)}
             </FormItem>
           </Col>
         </Row>
@@ -322,7 +322,7 @@ class GuoMeiList extends PureComponent {
           </Col>
           <Col md={8} sm={24}>
             <FormItem label="申报级别">
-              {getFieldDecorator('status3')(
+              {getFieldDecorator('declareLevel')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
                   <Option value="0">级别1</Option>
                   <Option value="1">级别2</Option>
