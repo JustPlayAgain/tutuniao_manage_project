@@ -68,6 +68,11 @@ export default [
             name: 'newslist',
             component: './News/newsList',
           },
+          {
+            path: '/news/add',
+            name: 'add',
+            component: './News/addNews',
+          },
         ],
       },
       {

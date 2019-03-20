@@ -13,6 +13,7 @@ export default {
   'menu.form.advancedform': '高级表单',
   'menu.news': '新闻',
   'menu.news.newslist': '新闻列表页',
+  'menu.news.add': '新增新闻',
   'menu.list': '列表',
   'menu.list.basiclist': '标准列表',
   'menu.list.searchtable': '列表',

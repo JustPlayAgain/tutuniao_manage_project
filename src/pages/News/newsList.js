@@ -133,7 +133,7 @@ class NewsList extends PureComponent {
 
   columns = [
     {
-      title: '活动名称',
+      title: '新闻名称',
       dataIndex: 'newsTitle',
     },
     {
