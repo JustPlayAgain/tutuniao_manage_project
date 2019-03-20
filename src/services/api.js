@@ -130,3 +130,9 @@ export async function queryNotices(params = {}) {
 export async function getFakeCaptcha(mobile) {
   return request(`/api/captcha?mobile=${mobile}`);
 }
+
+export async function activityList(params) {
+  return request(`${httpTitle}/activity/queryActivityList?${stringify(params)}`, {
+    method: 'GET',
+  });
+}

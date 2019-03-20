@@ -1,16 +1,25 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import Redirect from 'umi/redirect';
-import { Form, Input, Card, DatePicker, Button } from 'antd';
+import { Form, Input, Card, DatePicker, Button, Select } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
-const FormItem = Form.Item;
+@connect(({ list }) => ({
+  list,
+}))
 @connect(({ guoMei, loading }) => ({
   guoMei,
   submitting: loading.effects['guoMei/addGuoMeiInfo'],
 }))
 @Form.create()
 class GuoMeiForms extends PureComponent {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'list/activityLists',
+    });
+  }
+
   handleSubmit = e => {
     const { dispatch, form } = this.props;
     e.preventDefault();
@@ -31,10 +40,13 @@ class GuoMeiForms extends PureComponent {
 
   render() {
     const {
+      list: { list },
       guoMei: { data },
       submitting,
       form,
     } = this.props;
+    const FormItem = Form.Item;
+    const { Option } = Select;
     const { getFieldDecorator } = form;
     const formItemLayout = {
       labelCol: {
@@ -53,6 +65,14 @@ class GuoMeiForms extends PureComponent {
         sm: { span: 10, offset: 7 },
       },
     };
+    const children = [];
+    for (let i = 0; i < list.length; i += 1) {
+      children.push(
+        <Option key={i} value={list[i].id}>
+          {list[i].activityName}
+        </Option>
+      );
+    }
     if (data !== undefined && data.status === '1005') {
       return <Redirect to="/user/login" />;
     }
@@ -63,6 +83,11 @@ class GuoMeiForms extends PureComponent {
       <PageHeaderWrapper title="添加国美学员">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+            <FormItem {...formItemLayout} label="测评/活动名称">
+              {getFieldDecorator('activityName', {
+                rules: [{ required: true, message: '请选择测评/活动' }],
+              })(<Select placeholder="请选择测评/活动">{children}</Select>)}
+            </FormItem>
             <FormItem {...formItemLayout} label="学员名称">
               {getFieldDecorator('studentName', {
                 rules: [
