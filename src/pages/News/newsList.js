@@ -27,10 +27,10 @@ class UpdateActivityForm extends PureComponent {
     super(props);
     this.state = {
       formValues: {
-        activityId: props.values.id,
-        activityName: props.values.activityName,
-        activityCode: props.values.activityCode,
-        activityDate: props.values.activityDate,
+        id: props.values.id,
+        newsUrl: props.values.newsUrl,
+        newsPic: props.values.newsPic,
+        newsTitle: props.values.newsTitle,
       },
     };
   }
@@ -41,8 +41,10 @@ class UpdateActivityForm extends PureComponent {
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
         ...values,
-        activityId: formValues.activityId,
-        activityDate: values.activityDate.format('YYYY-MM-DD'),
+        id: formValues.id,
+        newsUrl: values.newsUrl,
+        newsPic: values.newsPic,
+        newsTitle: values.newsTitle,
       };
       if (!err) {
         handleUpdate(fieldsValue);
@@ -70,45 +72,45 @@ class UpdateActivityForm extends PureComponent {
         width={640}
         bodyStyle={{ padding: '32px 40px 48px' }}
         destroyOnClose
-        title="修改活动"
+        title="修改新闻"
         onCancel={() => handleUpdateModalVisible(false, values)}
         // onOk={okHandle(this.handleSubmit)}
         onOk={this.handleSubmit}
         visible={updateModalVisible}
       >
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-          <FormItem {...formItemLayout} label="学员姓名">
-            {getFieldDecorator('activityName', {
+          <FormItem {...formItemLayout} label="新闻名称">
+            {getFieldDecorator('newsTitle', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动名称',
+                  message: '请输入新闻名称',
                 },
               ],
-              initialValue: formValues.activityName,
-            })(<Input placeholder="请输入活动名称" />)}
+              initialValue: formValues.newsTitle,
+            })(<Input placeholder="请输入新闻名称" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="活动Code">
-            {getFieldDecorator('activityCode', {
+          <FormItem {...formItemLayout} label="跳转链接">
+            {getFieldDecorator('newsUrl', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动Code',
+                  message: '请输入跳转链接',
                 },
               ],
-              initialValue: formValues.activityCode,
-            })(<Input placeholder="请输入活动Code" />)}
+              initialValue: formValues.newsUrl,
+            })(<Input placeholder="请输入跳转链接" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="活动时间">
-            {getFieldDecorator('activityDate', {
+          <FormItem {...formItemLayout} label="缩略图地址">
+            {getFieldDecorator('newsPic', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动时间',
+                  message: '请输入缩略图地址',
                 },
               ],
-              initialValue: moment(formValues.activityDate),
-            })(<DatePicker format="YYYY-MM-DD" />)}
+              initialValue: formValues.newsPic,
+            })(<Input placeholder="请输入缩略图地址" />)}
           </FormItem>
         </Form>
       </Modal>
@@ -131,16 +133,16 @@ class NewsList extends PureComponent {
 
   columns = [
     {
+      title: '活动名称',
+      dataIndex: 'newsTitle',
+    },
+    {
       title: '跳转链接',
       dataIndex: 'newsUrl',
     },
     {
       title: '缩略图地址',
       dataIndex: 'newsPic',
-    },
-    {
-      title: '活动名称',
-      dataIndex: 'newsTitle',
     },
     {
       title: '创建人',
@@ -216,18 +218,30 @@ class NewsList extends PureComponent {
   handleUpdate = fields => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'activity/updateActivity',
+      type: 'news/updateNewsInfo',
       payload: {
-        id: fields.activityId,
-        activityName: fields.activityName,
-        activityCode: fields.activityCode,
-        activityDate: fields.activityDate,
+        id: fields.id,
+        newsUrl: fields.newsUrl,
+        newsPic: fields.newsPic,
+        newsTitle: fields.newsTitle,
+      },
+      callback: data => {
+        const { status } = data;
+
+        if (status === '1005') {
+          this.state.isLogin = true;
+        } else {
+          message.success('修改成功');
+          dispatch({
+            type: 'news/queryNewsList',
+          });
+        }
       },
     });
 
-    message.success('修改成功');
+    // message.success('修改成功');
     this.handleUpdateModalVisible();
-    window.history.go(0);
+    // window.history.go(0);
   };
 
   handleFormReset = () => {
@@ -237,6 +251,34 @@ class NewsList extends PureComponent {
     dispatch({
       type: 'rule/fetch',
       payload: {},
+    });
+  };
+
+  handleSearch = e => {
+    e.preventDefault();
+    const { dispatch, form } = this.props;
+
+    form.validateFields((err, fieldsValue) => {
+      if (err) return;
+
+      const values = {
+        ...fieldsValue,
+        pageIndex: 0,
+        pageSize: 10,
+        createDate:
+          fieldsValue.createDate === undefined
+            ? fieldsValue.createDate
+            : fieldsValue.createDate.format('YYYY-MM-DD'),
+      };
+      //
+      // this.setState({
+      //   formValues: values,
+      // });
+
+      dispatch({
+        type: 'news/queryNewsList',
+        payload: values,
+      });
     });
   };
 

@@ -1,4 +1,4 @@
-import { tutuniaoNewsList, addtutuniaoNews } from '@/services/newsService';
+import { tutuniaoNewsList, addtutuniaoNews, updatetutuniaoNews } from '@/services/newsService';
 
 export default {
   namespace: 'news',
@@ -24,6 +24,14 @@ export default {
         type: 'add',
         payload: response,
       });
+    },
+    *updateNewsInfo({ payload, callback }, { call, put }) {
+      const response = yield call(updatetutuniaoNews, payload);
+      yield put({
+        type: 'save',
+        payload: response,
+      });
+      if (callback) callback(response);
     },
   },
 

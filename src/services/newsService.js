@@ -18,3 +18,9 @@ export async function addtutuniaoNews(params) {
     method: 'POST',
   });
 }
+
+export async function updatetutuniaoNews(params) {
+  return request(`${httpTitle}/news/updateNews?${stringify(params)}`, {
+    method: 'POST',
+  });
+}

@@ -40,10 +40,20 @@ class UpdateGuoMeiForm extends PureComponent {
     super(props);
     this.state = {
       formValues: {
-        activityId: props.values.id,
-        activityName: props.values.activityName,
-        activityCode: props.values.activityCode,
-        activityDate: props.values.activityDate,
+        id: props.values.id,
+        numberId: props.values.numberId,
+        studentName: props.values.studentName,
+        nationality: props.values.nationality,
+        nation: props.values.nation,
+        gender: props.values.gender,
+        birthDate: props.values.birthDate,
+        certificateNumber: props.values.certificateNumber,
+        profession: props.values.profession,
+        declareLevel: props.values.declareLevel,
+        examinationLevel: props.values.examinationLevel,
+        originalLevel: props.values.originalLevel,
+        nativePlace: props.values.nativePlace,
+        examDate: props.values.examDate,
       },
     };
   }
@@ -54,8 +64,20 @@ class UpdateGuoMeiForm extends PureComponent {
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
         ...values,
-        activityId: formValues.activityId,
-        activityDate: values.activityDate.format('YYYY-MM-DD'),
+        id: formValues.id,
+        numberId: values.numberId,
+        studentName: values.studentName,
+        nationality: values.nationality,
+        nation: values.nation,
+        gender: values.gender,
+        birthDate: values.birthDate.format('YYYY-MM-DD'),
+        certificateNumber: values.certificateNumber,
+        profession: values.profession,
+        declareLevel: values.declareLevel,
+        examinationLevel: values.examinationLevel,
+        originalLevel: values.originalLevel,
+        nativePlace: values.nativePlace,
+        examDate: values.examDate.format('YYYY-MM-DD'),
       };
       if (!err) {
         handleUpdate(fieldsValue);
@@ -83,7 +105,7 @@ class UpdateGuoMeiForm extends PureComponent {
         width={640}
         bodyStyle={{ padding: '32px 40px 48px' }}
         destroyOnClose
-        title="修改活动"
+        title="修改国美"
         onCancel={() => handleUpdateModalVisible(false, values)}
         // onOk={okHandle(this.handleSubmit)}
         onOk={this.handleSubmit}
@@ -91,36 +113,135 @@ class UpdateGuoMeiForm extends PureComponent {
       >
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
           <FormItem {...formItemLayout} label="学员姓名">
-            {getFieldDecorator('activityName', {
+            {getFieldDecorator('studentName', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动名称',
+                  message: '请输入学员姓名',
                 },
               ],
-              initialValue: formValues.activityName,
-            })(<Input placeholder="请输入活动名称" />)}
+              initialValue: formValues.studentName,
+            })(<Input placeholder="请输入学员姓名" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="活动Code">
-            {getFieldDecorator('activityCode', {
+          <FormItem {...formItemLayout} label="国籍">
+            {getFieldDecorator('nationality', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动Code',
+                  message: '请输入国籍',
                 },
               ],
-              initialValue: formValues.activityCode,
-            })(<Input placeholder="请输入活动Code" />)}
+              initialValue: formValues.nationality,
+            })(<Input placeholder="请输入国籍" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="民族">
+            {getFieldDecorator('nation', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入民族',
+                },
+              ],
+              initialValue: formValues.nation,
+            })(<Input placeholder="请输入民族" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="性别">
+            {getFieldDecorator('gender', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入性别',
+                },
+              ],
+              initialValue: formValues.gender,
+            })(<Input placeholder="请输入性别" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="出生日期">
+            {getFieldDecorator('birthDate', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入出生日期',
+                },
+              ],
+              initialValue: moment(formValues.birthDate),
+            })(<DatePicker format="YYYY-MM-DD" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="证书编号">
+            {getFieldDecorator('certificateNumber', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入证书编号',
+                },
+              ],
+              initialValue: formValues.certificateNumber,
+            })(<Input placeholder="请输入证书编号" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="专业">
+            {getFieldDecorator('profession', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入专业',
+                },
+              ],
+              initialValue: formValues.certificateNumber,
+            })(<Input placeholder="请输入专业" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="申报级别">
+            {getFieldDecorator('declareLevel', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入申报级别',
+                },
+              ],
+              initialValue: formValues.declareLevel,
+            })(<Input placeholder="请输入申报级别" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="考试级别">
+            {getFieldDecorator('examinationLevel', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入考试级别',
+                },
+              ],
+              initialValue: formValues.examinationLevel,
+            })(<Input placeholder="请输入考试级别" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="原级别">
+            {getFieldDecorator('originalLevel', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入原级别',
+                },
+              ],
+              initialValue: formValues.originalLevel,
+            })(<Input placeholder="请输入原级别" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="所在地">
+            {getFieldDecorator('nativePlace', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入所在地',
+                },
+              ],
+              initialValue: formValues.nativePlace,
+            })(<Input placeholder="请输入所在地" />)}
           </FormItem>
           <FormItem {...formItemLayout} label="活动时间">
-            {getFieldDecorator('activityDate', {
+            {getFieldDecorator('examDate', {
               rules: [
                 {
                   required: true,
                   message: '请输入活动时间',
                 },
               ],
-              initialValue: moment(formValues.activityDate),
+              initialValue: moment(formValues.examDate),
             })(<DatePicker format="YYYY-MM-DD" />)}
           </FormItem>
         </Form>
@@ -194,18 +315,40 @@ class GuoMeiList extends PureComponent {
   handleUpdate = fields => {
     const { dispatch } = this.props;
     dispatch({
-      type: 'activity/updateActivity',
+      type: 'guoMei/updateGuoMeiInfo',
       payload: {
-        id: fields.activityId,
-        activityName: fields.activityName,
-        activityCode: fields.activityCode,
-        activityDate: fields.activityDate,
+        id: fields.id,
+        numberId: fields.numberId,
+        studentName: fields.studentName,
+        nationality: fields.nationality,
+        nation: fields.nation,
+        gender: fields.gender,
+        birthDate: fields.birthDate,
+        certificateNumber: fields.certificateNumber,
+        profession: fields.profession,
+        declareLevel: fields.declareLevel,
+        examinationLevel: fields.examinationLevel,
+        originalLevel: fields.originalLevel,
+        nativePlace: fields.nativePlace,
+        examDate: fields.examDate,
+      },
+      callback: data => {
+        const { status } = data;
+
+        if (status === '1005') {
+          this.state.isLogin = true;
+        } else {
+          message.success('修改成功');
+          dispatch({
+            type: 'guoMei/queryguoMeiList',
+          });
+        }
       },
     });
 
-    message.success('修改成功');
+    // message.success('修改成功');
     this.handleUpdateModalVisible();
-    window.history.go(0);
+    // window.history.go(0);
   };
 
   toggleForm = () => {
