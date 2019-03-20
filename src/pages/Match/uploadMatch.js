@@ -22,7 +22,11 @@ class GuoMeiUploadFile extends PureComponent {
           console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
-          message.success(`${info.file.name} file uploaded successfully`);
+          if (info.file.response.data.status === 'ok') {
+            message.success(`${info.file.name} file uploaded successfully`);
+          } else {
+            message.error(`${info.file.name} file upload failed.`);
+          }
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
           console.log(`${info.file.response.message}`);
