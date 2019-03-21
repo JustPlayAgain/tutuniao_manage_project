@@ -299,14 +299,14 @@ class ActivityList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="活动名称">
-              {getFieldDecorator('activityName')(<Input placeholder="请输入活动名称" />)}
+            <FormItem label="测评/比赛名称">
+              {getFieldDecorator('activityName')(<Input placeholder="请输入测评/比赛" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="活动日期">
+            <FormItem label="测评/比赛日期">
               {getFieldDecorator('activityDate')(
-                <DatePicker style={{ width: '100%' }} placeholder="请输入活动日期" />
+                <DatePicker style={{ width: '100%' }} placeholder="请输入测评/比赛日期" />
               )}
             </FormItem>
           </Col>
