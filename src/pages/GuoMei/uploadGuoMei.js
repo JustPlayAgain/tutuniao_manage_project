@@ -1,19 +1,44 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Form, message, Button, Upload, Icon, Card } from 'antd';
+import { Form, message, Button, Upload, Icon, Card, Select } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import guoMeiLess from './uploadGuoMei.less';
 
+@connect(({ list }) => ({
+  list,
+}))
 @connect(({ guoMei, loading }) => ({
   guoMei,
   submitting: loading.models.guoMei,
 }))
 @Form.create()
 class GuoMeiUploadFile extends PureComponent {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'list/activityLists',
+    });
+  }
+
   render() {
+    const {
+      list: { list },
+      form,
+    } = this.props;
+    const FormItem = Form.Item;
+    const { Option } = Select;
+    const { getFieldDecorator } = form;
+    const children = [];
+    for (let i = 0; i < list.length; i += 1) {
+      children.push(
+        <Option key={i} value={list[i].id}>
+          {list[i].activityName}
+        </Option>
+      );
+    }
     const props = {
       name: 'file',
-      action: 'http://www.tutuniao.com:8008/tutuniao/guomei/importguomeidata',
+      action: 'http://www.tutuniao.com:8008/tutuniao/guomei/importguomeidata?actId=',
       headers: {
         authorization: 'authorization-text',
       },
@@ -37,6 +62,13 @@ class GuoMeiUploadFile extends PureComponent {
       <PageHeaderWrapper title="批量添加国美学院">
         <Card bordered={false}>
           <div className={guoMeiLess.div}>
+            <Form>
+              <FormItem label="测评/活动名称">
+                {getFieldDecorator('actId', {
+                  rules: [{ required: true, message: '请选择测评/活动' }],
+                })(<Select placeholder="请选择测评/活动">{children}</Select>)}
+              </FormItem>
+            </Form>
             <Upload {...props}>
               <Button>
                 <Icon type="upload" /> Click to Upload
