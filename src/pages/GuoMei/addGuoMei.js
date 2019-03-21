@@ -84,7 +84,7 @@ class GuoMeiForms extends PureComponent {
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="测评/活动名称">
-              {getFieldDecorator('activityName', {
+              {getFieldDecorator('actId', {
                 rules: [{ required: true, message: '请选择测评/活动' }],
               })(<Select placeholder="请选择测评/活动">{children}</Select>)}
             </FormItem>
