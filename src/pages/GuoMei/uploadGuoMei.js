@@ -13,6 +13,11 @@ import guoMeiLess from './uploadGuoMei.less';
 }))
 @Form.create()
 class GuoMeiUploadFile extends PureComponent {
+  state = {
+    actId: '',
+    uploadModalVisible: false,
+  };
+
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -20,11 +25,25 @@ class GuoMeiUploadFile extends PureComponent {
     });
   }
 
+  handleChange = e => {
+    this.setState({
+      actId: e,
+    });
+    this.handleUploadModalVisible(true);
+  };
+
+  handleUploadModalVisible = flag => {
+    this.setState({
+      uploadModalVisible: !!flag,
+    });
+  };
+
   render() {
     const {
       list: { list },
       form,
     } = this.props;
+    const { uploadModalVisible, actId } = this.state;
     const FormItem = Form.Item;
     const { Option } = Select;
     const { getFieldDecorator } = form;
@@ -38,7 +57,7 @@ class GuoMeiUploadFile extends PureComponent {
     }
     const props = {
       name: 'file',
-      action: 'http://www.tutuniao.com:8008/tutuniao/guomei/importguomeidata?actId=',
+      action: `http://www.tutuniao.com:8008/tutuniao/guomei/importguomeidata?actId=${actId}`,
       headers: {
         authorization: 'authorization-text',
       },
@@ -50,7 +69,9 @@ class GuoMeiUploadFile extends PureComponent {
           if (info.file.response.data.status === 'ok') {
             message.success(`${info.file.name} file uploaded successfully`);
           } else {
-            message.error(`${info.file.name} file upload failed.`);
+            message.error(
+              `${info.file.name} file upload failed. ${info.file.response.data.message}`
+            );
           }
         } else if (info.file.status === 'error') {
           message.error(`${info.file.name} file upload failed.`);
@@ -66,14 +87,25 @@ class GuoMeiUploadFile extends PureComponent {
               <FormItem label="测评/活动名称">
                 {getFieldDecorator('actId', {
                   rules: [{ required: true, message: '请选择测评/活动' }],
-                })(<Select placeholder="请选择测评/活动">{children}</Select>)}
+                })(
+                  <Select
+                    placeholder="请选择测评/活动"
+                    defaultValue=""
+                    value={actId}
+                    onChange={this.handleChange}
+                  >
+                    {children}
+                  </Select>
+                )}
               </FormItem>
             </Form>
-            <Upload {...props}>
-              <Button>
-                <Icon type="upload" /> Click to Upload
-              </Button>
-            </Upload>
+            {uploadModalVisible ? (
+              <Upload {...props}>
+                <Button>
+                  <Icon type="upload" /> Click to Upload
+                </Button>
+              </Upload>
+            ) : null}
           </div>
         </Card>
       </PageHeaderWrapper>
