@@ -126,9 +126,9 @@ class UpdateActivityForm extends PureComponent {
 }
 
 /* eslint react/no-multi-comp:0 */
-@connect(({ activity, loading }) => ({
+@connect(({ activity }) => ({
   activity,
-  loading: loading.models.activity,
+  // loading: loading.models.activity,
 }))
 @Form.create()
 class ActivityList extends PureComponent {

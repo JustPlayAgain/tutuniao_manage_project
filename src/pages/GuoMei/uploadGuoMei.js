@@ -25,7 +25,7 @@ class GuoMeiUploadFile extends PureComponent {
     });
   }
 
-  handleChange = e => {
+  handleChangeActId = e => {
     this.setState({
       actId: e,
     });
@@ -92,7 +92,7 @@ class GuoMeiUploadFile extends PureComponent {
                     placeholder="请选择测评/活动"
                     defaultValue=""
                     value={actId}
-                    onChange={this.handleChange}
+                    onChange={this.handleChangeActId}
                   >
                     {children}
                   </Select>

@@ -29,6 +29,7 @@ const { Option } = Select;
 @Form.create()
 class UpdateGuoMeiForm extends PureComponent {
   static defaultProps = {
+    actIdOptions: [],
     handleUpdate: () => {},
     handleUpdateModalVisible: () => {},
     values: {},
@@ -54,6 +55,7 @@ class UpdateGuoMeiForm extends PureComponent {
         originalLevel: props.values.originalLevel,
         nativePlace: props.values.nativePlace,
         examDate: props.values.examDate,
+        actId: props.values.actId,
       },
     };
   }
@@ -86,7 +88,7 @@ class UpdateGuoMeiForm extends PureComponent {
   };
 
   render() {
-    const { form, updateModalVisible, handleUpdateModalVisible, values } = this.props;
+    const { form, updateModalVisible, handleUpdateModalVisible, values, actIdOptions } = this.props;
     const { getFieldDecorator } = form;
     const { formValues } = this.state;
     const formItemLayout = {
@@ -112,6 +114,21 @@ class UpdateGuoMeiForm extends PureComponent {
         visible={updateModalVisible}
       >
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+          <FormItem {...formItemLayout} label="比赛、测评名称">
+            {getFieldDecorator('actId', {
+              rules: [{ required: true, message: '请选择比赛、测评' }],
+              initialValue: formValues.actId,
+            })(
+              <Select
+                placeholder="请选择比赛、测评"
+                defaultValue={formValues.actId}
+                onChange={this.handleChangeActId}
+                style={{ width: 100 }}
+              >
+                {actIdOptions}
+              </Select>
+            )}
+          </FormItem>
           <FormItem {...formItemLayout} label="学员姓名">
             {getFieldDecorator('studentName', {
               rules: [
@@ -250,6 +267,9 @@ class UpdateGuoMeiForm extends PureComponent {
   }
 }
 
+@connect(({ activity }) => ({
+  activity,
+}))
 /* eslint react/no-multi-comp:0 */
 @connect(({ guoMei, loading }) => ({
   guoMei,
@@ -258,6 +278,7 @@ class UpdateGuoMeiForm extends PureComponent {
 @Form.create()
 class GuoMeiList extends PureComponent {
   state = {
+    actId: -2,
     selectedRows: [],
     updateModalVisible: false,
     stepFormValues: {},
@@ -300,6 +321,11 @@ class GuoMeiList extends PureComponent {
   // 生命周期函数 在进行reder渲染前 请求接口渲染数据
   componentDidMount() {
     const { dispatch } = this.props;
+
+    dispatch({
+      type: 'activity/activityList',
+    });
+
     dispatch({
       type: 'guoMei/queryguoMeiList',
     });
@@ -361,33 +387,28 @@ class GuoMeiList extends PureComponent {
   handleFormReset = () => {
     const { form, dispatch } = this.props;
     form.resetFields();
-
+    const values = { pageIndex: 0, pageSize: 10, actId: -2 };
     dispatch({
-      type: 'rule/fetch',
-      payload: {},
+      type: 'guoMei/queryguoMeiList',
+      payload: values,
     });
   };
 
-  handleSearch = e => {
-    e.preventDefault();
+  handleToSearch = (pageIndex, pageSize, tmpActId) => {
     const { dispatch, form } = this.props;
-
+    const { actId } = this.state;
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-
       const values = {
         ...fieldsValue,
-        pageIndex: 0,
-        pageSize: 10,
+        pageIndex,
+        pageSize,
         birthDate:
           fieldsValue.birthDate === undefined
             ? fieldsValue.birthDate
             : fieldsValue.birthDate.format('YYYY-MM-DD'),
+        actId: tmpActId === undefined ? actId : tmpActId,
       };
-      //
-      // this.setState({
-      //   formValues: values,
-      // });
 
       dispatch({
         type: 'guoMei/queryguoMeiList',
@@ -396,12 +417,55 @@ class GuoMeiList extends PureComponent {
     });
   };
 
-  renderSimpleForm() {
+  handleSearch = e => {
+    e.preventDefault();
+    this.handleToSearch(0, 10);
+  };
+
+  handleChangeActId = e => {
+    const { dispatch } = this.props;
+    const values = { pageIndex: 0, pageSize: 10, actId: e };
+    dispatch({
+      type: 'guoMei/queryguoMeiList',
+      payload: values,
+    });
+    this.setState(
+      {
+        actId: e,
+      },
+      () => {
+        this.state.actId = e;
+      }
+    );
+  };
+
+  renderSimpleForm(actIdOptions) {
     const {
       form: { getFieldDecorator },
     } = this.props;
+    const { actId } = this.state;
+
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="比赛、测评名称">
+              {getFieldDecorator('actId', {
+                rules: [{ required: true, message: '请选择比赛、测评' }],
+              })(
+                <Select
+                  placeholder="请选择比赛、测评"
+                  defaultValue="-2"
+                  value={actId}
+                  onChange={this.handleChangeActId}
+                >
+                  {actIdOptions}
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+        </Row>
+
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="学生姓名">
@@ -431,12 +495,32 @@ class GuoMeiList extends PureComponent {
     );
   }
 
-  renderAdvancedForm() {
+  renderAdvancedForm(actIdOptions) {
     const {
       form: { getFieldDecorator },
     } = this.props;
+    const { actId } = this.state;
+
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="比赛、测评名称">
+              {getFieldDecorator('actId', {
+                rules: [{ required: true, message: '请选择比赛、测评' }],
+              })(
+                <Select
+                  placeholder="请选择比赛、测评"
+                  defaultValue="-2"
+                  value={actId}
+                  onChange={this.handleChangeActId}
+                >
+                  {actIdOptions}
+                </Select>
+              )}
+            </FormItem>
+          </Col>
+        </Row>
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
             <FormItem label="学生姓名">
@@ -496,16 +580,26 @@ class GuoMeiList extends PureComponent {
     );
   }
 
-  renderForm() {
+  renderForm(actIdOptions) {
     const { expandForm } = this.state;
-    return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
+    return expandForm ? this.renderAdvancedForm(actIdOptions) : this.renderSimpleForm(actIdOptions);
   }
 
   render() {
     const {
+      activity,
       guoMei: { data },
       loading,
     } = this.props;
+
+    const actIdOptions = [];
+    for (let i = 0; i < activity.data.list.length; i += 1) {
+      actIdOptions.push(
+        <Option key={i} value={activity.data.list[i].id}>
+          {activity.data.list[i].activityName}
+        </Option>
+      );
+    }
     const { list = [], pagination } = data;
     const { selectedRows, stepFormValues, updateModalVisible } = this.state;
     const paginationProps = {
@@ -513,53 +607,23 @@ class GuoMeiList extends PureComponent {
       showQuickJumper: true,
       ...pagination,
       onShowSizeChange: (pageIndex, pageSize) => {
-        const { dispatch, form } = this.props;
-        form.validateFields((err, fieldsValue) => {
-          if (err) return;
-          const values = {
-            ...fieldsValue,
-            pageIndex: 0,
-            pageSize,
-            birthDate:
-              fieldsValue.birthDate === undefined
-                ? fieldsValue.birthDate
-                : fieldsValue.birthDate.format('YYYY-MM-DD'),
-          };
-          dispatch({
-            type: 'guoMei/queryguoMeiList',
-            payload: values,
-          });
-        });
+        this.handleToSearch(0, pageSize);
       },
       onChange: (pageIndex, pageSize) => {
-        const { dispatch, form } = this.props;
-        form.validateFields((err, fieldsValue) => {
-          if (err) return;
-          const values = {
-            ...fieldsValue,
-            pageIndex,
-            pageSize,
-            birthDate:
-              fieldsValue.birthDate === undefined
-                ? fieldsValue.birthDate
-                : fieldsValue.birthDate.format('YYYY-MM-DD'),
-          };
-          dispatch({
-            type: 'guoMei/queryguoMeiList',
-            payload: values,
-          });
-        });
+        this.handleToSearch(pageIndex, pageSize);
       },
     };
     const updateMethods = {
+      actIdOptions,
       dispatch: this.dispatch,
       handleUpdateModalVisible: this.handleUpdateModalVisible,
       handleUpdate: this.handleUpdate,
     };
+
     return (
       <PageHeaderWrapper title="国美学院列表页">
         <Card bordered={false}>
-          <div className={styles.tableListForm}>{this.renderForm()}</div>
+          <div className={styles.tableListForm}>{this.renderForm(actIdOptions)}</div>
           <div className={guoMeiLess.tableList}>
             <Table
               selectedRows={selectedRows}
