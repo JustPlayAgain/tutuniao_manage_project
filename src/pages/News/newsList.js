@@ -1,10 +1,21 @@
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from 'dva';
 import moment from 'moment';
-import { Button, Card, Col, DatePicker, Form, Input, message, Modal, Row, Table } from 'antd';
+import {
+  Button,
+  Card,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  message,
+  Modal,
+  Row,
+  Table,
+  Avatar,
+} from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import activityList from './news.less';
-import styles from '../List/TableList.less';
+import newsLess from './news.less';
 
 const FormItem = Form.Item;
 
@@ -14,7 +25,7 @@ const FormItem = Form.Item;
 //     .join(',');
 
 @Form.create()
-class UpdateActivityForm extends PureComponent {
+class UpdateNewsForm extends PureComponent {
   static defaultProps = {
     handleUpdate: () => {},
     handleUpdateModalVisible: () => {},
@@ -135,14 +146,18 @@ class NewsList extends PureComponent {
     {
       title: '新闻名称',
       dataIndex: 'newsTitle',
+      width: 100,
     },
     {
       title: '跳转链接',
       dataIndex: 'newsUrl',
+      render: val => <a href={val}>{val}</a>,
+      width: 150,
     },
     {
       title: '缩略图地址',
       dataIndex: 'newsPic',
+      render: val => <Avatar shape="square" size={147} src={val} />,
     },
     {
       title: '创建人',
@@ -154,16 +169,16 @@ class NewsList extends PureComponent {
       dataIndex: 'createDate',
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
-    {
-      title: '修改人',
-      dataIndex: 'updateUser',
-    },
-    {
-      title: '修改时间',
-      sorter: true,
-      dataIndex: 'updateDate',
-      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
-    },
+    // {
+    //   title: '修改人',
+    //   dataIndex: 'updateUser',
+    // },
+    // {
+    //   title: '修改时间',
+    //   sorter: true,
+    //   dataIndex: 'updateDate',
+    //   render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
+    // },
     {
       title: '操作',
       render: (text, record) => (
@@ -302,7 +317,7 @@ class NewsList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <span className={styles.submitButtons}>
+            <span className={newsLess.submitButtons}>
               <Button type="primary" htmlType="submit">
                 查询
               </Button>
@@ -340,22 +355,22 @@ class NewsList extends PureComponent {
     return (
       <PageHeaderWrapper title="新闻列表页">
         <Card bordered={false}>
-          <div className={styles.tableListForm}>{this.renderForm()}</div>
-          <div className={activityList.tableList}>
+          <div className={newsLess.tableListForm}>{this.renderForm()}</div>
+          <div className={newsLess.tableList}>
             <Table
               selectedRows={selectedRows}
               loading={loading}
               dataSource={list}
               columns={this.columns}
               pagination={paginationProps}
-              scroll={{ x: 1 }}
+              scroll={{ x: 1000 }}
               // onSelectRow={this.handleSelectRows}
               // onChange={this.handleStandardTableChange}
             />
           </div>
         </Card>
         {stepFormValues && Object.keys(stepFormValues).length ? (
-          <UpdateActivityForm
+          <UpdateNewsForm
             {...updateMethods}
             updateModalVisible={updateModalVisible}
             values={stepFormValues}
