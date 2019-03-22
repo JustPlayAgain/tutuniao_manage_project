@@ -59,35 +59,35 @@ class ActivityForms extends PureComponent {
       return <Redirect to="/activity/list" />;
     }
     return (
-      <PageHeaderWrapper title="新增测评/比赛">
+      <PageHeaderWrapper title="新增比赛、测评">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-            <FormItem {...formItemLayout} label="测评/比赛名称">
+            <FormItem {...formItemLayout} label="比赛、测评名称">
               {getFieldDecorator('activityName', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入测评/比赛名称',
+                    message: '请输入比赛、测评名称',
                   },
                 ],
-              })(<Input placeholder="请输入测评/比赛名称" />)}
+              })(<Input placeholder="请输入比赛、测评名称" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="测评/比赛Code">
+            <FormItem {...formItemLayout} label="比赛、测评Code">
               {getFieldDecorator('activityCode', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入测评/比赛Code',
+                    message: '请输入比赛、测评Code',
                   },
                 ],
-              })(<Input placeholder="请输入测评/比赛Code" />)}
+              })(<Input placeholder="请输入比赛、测评Code" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="测评/比赛时间">
+            <FormItem {...formItemLayout} label="比赛、测评时间">
               {getFieldDecorator('activityDate', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入测评/比赛时间',
+                    message: '请输入比赛、测评时间',
                   },
                 ],
               })(<DatePicker format="YYYY-MM-DD" />)}

@@ -84,12 +84,12 @@ class GuoMeiUploadFile extends PureComponent {
         <Card bordered={false}>
           <div className={guoMeiLess.div}>
             <Form>
-              <FormItem label="测评/活动名称">
+              <FormItem label="比赛、测评名称">
                 {getFieldDecorator('actId', {
-                  rules: [{ required: true, message: '请选择测评/活动' }],
+                  rules: [{ required: true, message: '请选择比赛、测评' }],
                 })(
                   <Select
-                    placeholder="请选择测评/活动"
+                    placeholder="请选择比赛、测评"
                     defaultValue=""
                     value={actId}
                     onChange={this.handleChangeActId}
