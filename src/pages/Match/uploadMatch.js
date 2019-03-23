@@ -13,7 +13,7 @@ class GuoMeiUploadFile extends PureComponent {
   render() {
     const props = {
       name: 'file',
-      action: 'http://39.106.123.79/match/importMatchData',
+      action: 'http://39.106.123.79:8008/mxh/match/importMatchData',
       headers: {
         authorization: 'authorization-text',
       },
