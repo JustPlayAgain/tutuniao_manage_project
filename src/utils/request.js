@@ -37,6 +37,24 @@ const checkStatus = response => {
   throw error;
 };
 
+const checkIsLogin = (response, url) => {
+  if (!url.match(/login\/login/i)) {
+    response
+      .clone()
+      .text()
+      .then(content => {
+        const josnContent = JSON.parse(content);
+        if (josnContent.status === '1005') {
+          notification.error({
+            message: '未登录',
+          });
+          router.push('/user/login');
+        }
+      });
+  }
+  return response;
+};
+
 const cachedSave = (response, hashcode) => {
   /**
    * Clone a response data and store it in sessionStorage
@@ -73,9 +91,9 @@ export default function request(url, option) {
    * Maybe url has the same parameters
    */
   const fingerprint = url + (options.body ? JSON.stringify(options.body) : '');
-  const userEntity = localStorage.getItem('UserEntity');
-  const userEntityKey = '_id :';
-  const cookies = userEntityKey + userEntity;
+  // const userEntity = localStorage.getItem('UserEntity');
+  // const userEntityKey = '_id :';
+  // const cookies = userEntityKey + userEntity;
   // stringify(cookie.loadAll(),{delimiter: '; '});
   const hashcode = hash
     .sha256()
@@ -100,8 +118,8 @@ export default function request(url, option) {
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Methods': 'POST, GET, PUT',
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-        uuid: userEntity,
-        Cookie: cookies,
+        // uuid: userEntity,
+        // Cookie: cookies,
         ...newOptions.headers,
       };
       newOptions.body = JSON.stringify(newOptions.body);
@@ -113,8 +131,8 @@ export default function request(url, option) {
         'Access-Control-Allow-Credentials': true,
         'Access-Control-Allow-Methods': 'POST, GET, PUT',
         'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-        uuid: userEntity,
-        Cookie: cookies,
+        // uuid: userEntity,
+        // Cookie: cookies,
         ...newOptions.headers,
       };
     }
@@ -139,6 +157,7 @@ export default function request(url, option) {
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
+    .then(response => checkIsLogin(response, url))
     .then(response => {
       // DELETE and 204 do not return data by default
       // using .json will report an error.
