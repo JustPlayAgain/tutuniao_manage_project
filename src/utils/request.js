@@ -155,9 +155,9 @@ export default function request(url, option) {
   }
   newOptions.headers = {
     ...newOptions.headers,
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allowg-Origin': '*',
     'Access-Control-Allow-Credentials': true,
-    'Access-Control-Allow-Methods': 'POST, GET, PUT',
+    'Access-Control-Allow-Methods': 'POST, GET, PUT, OPTIONS',
     'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
   };
   return fetch(url, newOptions)
