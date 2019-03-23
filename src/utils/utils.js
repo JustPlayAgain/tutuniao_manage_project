@@ -4,7 +4,7 @@ import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 
 export function getHttpTitle() {
-  return 'http://www.tutuniao.com:8008/tutuniao';
+  return 'http://39.106.123.79';
 }
 
 export function fixedZero(val) {

@@ -57,7 +57,7 @@ class GuoMeiUploadFile extends PureComponent {
     }
     const props = {
       name: 'file',
-      action: `http://www.tutuniao.com:8008/tutuniao/guomei/importguomeidata?actId=${actId}`,
+      action: `http://39.106.123.79/guomei/importguomeidata?actId=${actId}`,
       headers: {
         authorization: 'authorization-text',
       },
