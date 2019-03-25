@@ -126,7 +126,22 @@ class GuoMeiForms extends PureComponent {
                     message: '请输入学员性别',
                   },
                 ],
-              })(<Input placeholder="请输入学员性别" />)}
+              })(
+                <Select placeholder="请选择测评/活动">
+                  <Option value="男">男</Option>
+                  <Option value="女">女</Option>
+                </Select>
+              )}
+            </FormItem>
+            <FormItem {...formItemLayout} label="学员身份证">
+              {getFieldDecorator('idCard', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入学员身份证',
+                  },
+                ],
+              })(<Input placeholder="请输入学员身份证" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="学员出生日期">
               {getFieldDecorator('birthDate', {
