@@ -13,7 +13,7 @@ export default [
     path: '/',
     component: '../layouts/BasicLayout',
     Routes: ['src/pages/Authorized'],
-    authority: ['Caa_Mxh_Cn'],
+    authority: ['Caa_Mxh_Cn', 'tutuniao'],
     routes: [
       { path: '/', redirect: '/activity/list' },
       // list

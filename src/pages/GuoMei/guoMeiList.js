@@ -286,16 +286,18 @@ class GuoMeiList extends PureComponent {
 
   columns = [
     { title: '学员姓名', dataIndex: 'studentName', key: 'name', fixed: 'left' },
+    { title: '身份证', dataIndex: 'idCard' },
+    { title: '证书编号', dataIndex: 'certificateNumber' },
     { title: '国籍', dataIndex: 'nationality' },
     { title: '民族', dataIndex: 'nation' },
     { title: '性别', dataIndex: 'gender' },
-    { title: '证书编号', dataIndex: 'certificateNumber' },
     {
       title: '出生日期',
       dataIndex: 'birthDate',
       width: 120,
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
+
     { title: '专业', dataIndex: 'profession' },
     { title: '申报级别', dataIndex: 'declareLevel' },
     { title: '考试级别', dataIndex: 'examinationLevel' },
@@ -473,6 +475,11 @@ class GuoMeiList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
+            <FormItem label="身份证">
+              {getFieldDecorator('idCard')(<Input placeholder="请输入学员身份证" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
             <FormItem label="证书编号">
               {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
             </FormItem>
@@ -528,11 +535,15 @@ class GuoMeiList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
+            <FormItem label="身份证">
+              {getFieldDecorator('idCard')(<Input placeholder="请输入学员身份证" />)}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
             <FormItem label="证书编号">
               {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
             </FormItem>
           </Col>
-
           <Col md={8} sm={24}>
             <FormItem label="专业">
               {getFieldDecorator('profession')(<Input placeholder="请输入专业" />)}
