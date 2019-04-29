@@ -144,19 +144,20 @@ class NewsList extends PureComponent {
 
   columns = [
     {
-      title: '新闻名称',
-      dataIndex: 'newsTitle',
-      width: 100,
-      key: 'newsTitle',
-      fixed: 'left',
-    },
-    {
       title: '缩略图地址',
       dataIndex: 'newsPic',
       render: val => <Avatar shape="square" size={147} src={val} />,
       key: 'newsPic',
       fixed: 'left',
     },
+    {
+      title: '新闻名称',
+      dataIndex: 'newsTitle',
+      width: 100,
+      key: 'newsTitle',
+      fixed: 'left',
+    },
+
     {
       title: '跳转链接',
       dataIndex: 'newsUrl',
