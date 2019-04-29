@@ -1,5 +1,3 @@
-import fetch from 'dva/fetch';
-
 export const dva = {
   config: {
     onError(err) {
@@ -29,10 +27,13 @@ export function patchRoutes(routes) {
 }
 
 export function render(oldRender) {
-  fetch('/api/auth_routes')
-    .then(res => res.json())
-    .then(ret => {
-      authRoutes = ret;
-      oldRender();
-    });
+  authRoutes = { '/form/advanced-form': { authority: ['Caa_Mxh_Cn'] } };
+  oldRender();
+
+  // fetch('/api/auth_routes')
+  //   .then(res => res.json())
+  //   .then(ret => {
+  //     authRoutes = ret;
+  //     oldRender();
+  //   });
 }
