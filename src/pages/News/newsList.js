@@ -161,10 +161,9 @@ class NewsList extends PureComponent {
     {
       title: '跳转链接',
       dataIndex: 'newsUrl',
-      render: val => <a href={val}>{val}</a>,
+      render: val => <a href={val}>跳转URL</a>,
       key: 'newsUrl',
       fixed: 'newsUrl',
-      width: 150,
     },
     {
       title: '创建人',
