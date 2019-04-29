@@ -190,6 +190,7 @@ class NewsList extends PureComponent {
     // },
     {
       title: '操作',
+      fixed: 'right',
       render: (text, record) => (
         <Fragment>
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
