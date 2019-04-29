@@ -72,15 +72,15 @@ class ActivityForms extends PureComponent {
                 ],
               })(<Input placeholder="请输入比赛、测评名称" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="比赛、测评Code">
+            <FormItem {...formItemLayout} label="活动地点">
               {getFieldDecorator('activityCode', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入比赛、测评Code',
+                    message: '请输入活动地点',
                   },
                 ],
-              })(<Input placeholder="请输入比赛、测评Code" />)}
+              })(<Input placeholder="请输入活动地点" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="比赛、测评时间">
               {getFieldDecorator('activityDate', {

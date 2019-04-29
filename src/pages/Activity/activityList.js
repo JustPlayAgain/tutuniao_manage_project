@@ -97,16 +97,16 @@ class UpdateActivityForm extends PureComponent {
               initialValue: formValues.activityName,
             })(<Input placeholder="请输入活动名称" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="活动Code">
+          <FormItem {...formItemLayout} label="活动地点">
             {getFieldDecorator('activityCode', {
               rules: [
                 {
                   required: true,
-                  message: '请输入活动Code',
+                  message: '请输入活动地点',
                 },
               ],
               initialValue: formValues.activityCode,
-            })(<Input placeholder="请输入活动Code" />)}
+            })(<Input placeholder="请输入活动地点" />)}
           </FormItem>
           <FormItem {...formItemLayout} label="活动时间">
             {getFieldDecorator('activityDate', {
@@ -146,7 +146,7 @@ class ActivityList extends PureComponent {
       dataIndex: 'activityName',
     },
     {
-      title: '活动Code',
+      title: '活动地点',
       // sorter: true,
       dataIndex: 'activityCode',
     },

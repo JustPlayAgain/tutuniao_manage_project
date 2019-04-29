@@ -16,26 +16,6 @@ export default [
     authority: ['Caa_Mxh_Cn', 'tutuniao'],
     routes: [
       { path: '/', redirect: '/activity/list' },
-      // list
-      {
-        path: '/activity',
-        icon: 'table',
-        name: 'activity',
-        routes: [
-          {
-            path: '/activity/list',
-            name: 'list',
-            // component: './List/TableList',
-            component: './Activity/activityList',
-          },
-          {
-            path: '/activity/add',
-            name: 'add',
-            // component: './List/TableList',
-            component: './Activity/addActivity',
-          },
-        ],
-      },
       {
         path: '/guoMei',
         icon: 'form',
@@ -59,22 +39,25 @@ export default [
         ],
       },
       {
-        path: '/news',
-        icon: 'profile',
-        name: 'news',
+        path: '/activity',
+        icon: 'table',
+        name: 'activity',
         routes: [
           {
-            path: '/news/newsList',
-            name: 'newslist',
-            component: './News/newsList',
+            path: '/activity/list',
+            name: 'list',
+            // component: './List/TableList',
+            component: './Activity/activityList',
           },
           {
-            path: '/news/add',
+            path: '/activity/add',
             name: 'add',
-            component: './News/addNews',
+            // component: './List/TableList',
+            component: './Activity/addActivity',
           },
         ],
       },
+
       {
         path: '/match',
         icon: 'dashboard',
@@ -94,6 +77,23 @@ export default [
             path: '/match/uploadFile',
             name: 'uploadFile',
             component: './Match/uploadMatch',
+          },
+        ],
+      },
+      {
+        path: '/news',
+        icon: 'profile',
+        name: 'news',
+        routes: [
+          {
+            path: '/news/newsList',
+            name: 'newslist',
+            component: './News/newsList',
+          },
+          {
+            path: '/news/add',
+            name: 'add',
+            component: './News/addNews',
           },
         ],
       },
