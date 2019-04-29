@@ -495,7 +495,7 @@ class MatchList extends PureComponent {
       return <Redirect to="/user/login" />;
     }
     return (
-      <PageHeaderWrapper title="结业学员列表">
+      <PageHeaderWrapper title="学员列表">
         <Card bordered={false}>
           <div className={activityList.tableListForm}>{this.renderForm()}</div>
           <div className={activityList.tableList}>

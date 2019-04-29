@@ -59,7 +59,7 @@ class matchForms extends PureComponent {
       return <Redirect to="/match/matchList" />;
     }
     return (
-      <PageHeaderWrapper title="添加结业学员">
+      <PageHeaderWrapper title="添加学员">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="学员名称">

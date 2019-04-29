@@ -80,7 +80,7 @@ class GuoMeiForms extends PureComponent {
       return <Redirect to="/guoMei/guoMeiList" />;
     }
     return (
-      <PageHeaderWrapper title="添加国美学员">
+      <PageHeaderWrapper title="添加学员">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="测评/活动名称">

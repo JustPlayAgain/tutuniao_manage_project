@@ -632,7 +632,7 @@ class GuoMeiList extends PureComponent {
     };
 
     return (
-      <PageHeaderWrapper title="国美学院列表页">
+      <PageHeaderWrapper title="学院列表">
         <Card bordered={false}>
           <div className={styles.tableListForm}>{this.renderForm(actIdOptions)}</div>
           <div className={guoMeiLess.tableList}>

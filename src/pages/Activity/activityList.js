@@ -388,7 +388,7 @@ class ActivityList extends PureComponent {
       return <Redirect to="/user/login" />;
     }
     return (
-      <PageHeaderWrapper title="活动列表页">
+      <PageHeaderWrapper title="大赛列表">
         <Card bordered={false}>
           <div className={styles.tableListForm}>{this.renderForm()}</div>
           <div className={activityList.tableList}>

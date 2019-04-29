@@ -34,7 +34,7 @@ class GuoMeiUploadFile extends PureComponent {
       },
     };
     return (
-      <PageHeaderWrapper title="批量添加结业学员">
+      <PageHeaderWrapper title="批量添加">
         <Card bordered={false}>
           <div className={guoMeiLess.div}>
             <Upload {...props}>

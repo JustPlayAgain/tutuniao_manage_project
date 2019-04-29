@@ -59,7 +59,7 @@ class ActivityForms extends PureComponent {
       return <Redirect to="/activity/list" />;
     }
     return (
-      <PageHeaderWrapper title="新增比赛、测评">
+      <PageHeaderWrapper title="添加大赛和评测">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="比赛、测评名称">
