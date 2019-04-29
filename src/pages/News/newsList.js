@@ -146,13 +146,11 @@ class NewsList extends PureComponent {
     {
       title: '缩略图地址',
       dataIndex: 'newsPic',
-      fixed: 'left',
       render: val => <Avatar shape="square" size={147} src={val} />,
       key: 'newsPic',
     },
     {
       title: '新闻名称',
-      fixed: 'left',
       dataIndex: 'newsTitle',
       key: 'newsTitle',
     },
@@ -160,18 +158,16 @@ class NewsList extends PureComponent {
     {
       title: '跳转链接',
       dataIndex: 'newsUrl',
-      fixed: 'right',
       render: val => <a href={val}>跳转URL</a>,
       key: 'newsUrl',
     },
     {
       title: '创建人',
-      fixed: 'right',
+
       dataIndex: 'createUser',
     },
     {
       title: '创建时间',
-      fixed: 'right',
       sorter: true,
       dataIndex: 'createDate',
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
@@ -188,7 +184,6 @@ class NewsList extends PureComponent {
     // },
     {
       title: '操作',
-      fixed: 'right',
       render: (text, record) => (
         <Fragment>
           <a onClick={() => this.handleUpdateModalVisible(true, record)}>修改</a>
