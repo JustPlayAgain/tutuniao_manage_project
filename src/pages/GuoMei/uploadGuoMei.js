@@ -84,12 +84,12 @@ class GuoMeiUploadFile extends PureComponent {
         <Card bordered={false}>
           <div className={guoMeiLess.div}>
             <Form>
-              <FormItem label="比赛、测评名称">
+              <FormItem label="大赛/测评名称">
                 {getFieldDecorator('actId', {
-                  rules: [{ required: true, message: '请选择比赛、测评' }],
+                  rules: [{ required: true, message: '请选择大赛/测评' }],
                 })(
                   <Select
-                    placeholder="请选择比赛、测评"
+                    placeholder="请选择大赛/测评"
                     defaultValue=""
                     value={actId}
                     onChange={this.handleChangeActId}
@@ -102,7 +102,7 @@ class GuoMeiUploadFile extends PureComponent {
             {uploadModalVisible ? (
               <Upload {...props}>
                 <Button>
-                  <Icon type="upload" /> Click to Upload
+                  <Icon type="upload" /> 点击上传
                 </Button>
               </Upload>
             ) : null}

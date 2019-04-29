@@ -114,13 +114,13 @@ class UpdateGuoMeiForm extends PureComponent {
         visible={updateModalVisible}
       >
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-          <FormItem {...formItemLayout} label="比赛、测评名称">
+          <FormItem {...formItemLayout} label="大赛/测评名称">
             {getFieldDecorator('actId', {
-              rules: [{ required: true, message: '请选择比赛、测评' }],
+              rules: [{ required: true, message: '请选择大赛/测评' }],
               initialValue: formValues.actId,
             })(
               <Select
-                placeholder="请选择比赛、测评"
+                placeholder="请选择大赛/测评"
                 defaultValue={formValues.actId}
                 onChange={this.handleChangeActId}
                 style={{ width: 100 }}
@@ -451,12 +451,12 @@ class GuoMeiList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="比赛、测评名称">
+            <FormItem label="大赛/测评名称">
               {getFieldDecorator('actId', {
-                rules: [{ required: true, message: '请选择比赛、测评' }],
+                rules: [{ required: true, message: '请选择大赛/测评' }],
               })(
                 <Select
-                  placeholder="请选择比赛、测评"
+                  placeholder="请选择大赛/测评"
                   defaultValue="-2"
                   value={actId}
                   onChange={this.handleChangeActId}
@@ -512,12 +512,12 @@ class GuoMeiList extends PureComponent {
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={8} sm={24}>
-            <FormItem label="比赛、测评名称">
+            <FormItem label="大赛/测评名称">
               {getFieldDecorator('actId', {
-                rules: [{ required: true, message: '请选择比赛、测评' }],
+                rules: [{ required: true, message: '请选择大赛/测评' }],
               })(
                 <Select
-                  placeholder="请选择比赛、测评"
+                  placeholder="请选择大赛/测评"
                   defaultValue="-2"
                   value={actId}
                   onChange={this.handleChangeActId}

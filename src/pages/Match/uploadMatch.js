@@ -39,7 +39,7 @@ class GuoMeiUploadFile extends PureComponent {
           <div className={guoMeiLess.div}>
             <Upload {...props}>
               <Button>
-                <Icon type="upload" /> Click to Upload
+                <Icon type="upload" /> 点击上传
               </Button>
             </Upload>
           </div>
