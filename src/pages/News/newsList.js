@@ -146,11 +146,13 @@ class NewsList extends PureComponent {
     {
       title: '缩略图地址',
       dataIndex: 'newsPic',
+      fixed: 'left',
       render: val => <Avatar shape="square" size={147} src={val} />,
       key: 'newsPic',
     },
     {
       title: '新闻名称',
+      fixed: 'left',
       dataIndex: 'newsTitle',
       key: 'newsTitle',
     },
