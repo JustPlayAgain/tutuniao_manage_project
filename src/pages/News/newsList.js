@@ -152,7 +152,6 @@ class NewsList extends PureComponent {
     {
       title: '新闻名称',
       dataIndex: 'newsTitle',
-      width: 100,
       key: 'newsTitle',
     },
 
