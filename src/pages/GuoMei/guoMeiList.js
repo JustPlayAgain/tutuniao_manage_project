@@ -387,9 +387,7 @@ class GuoMeiList extends PureComponent {
           this.state.isLogin = true;
         } else {
           message.success('修改成功');
-          dispatch({
-            type: 'guoMei/queryguoMeiList',
-          });
+          this.handleToSearch(0, 10);
         }
       },
     });
