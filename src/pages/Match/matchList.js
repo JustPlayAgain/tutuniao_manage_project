@@ -64,6 +64,20 @@ class UpdateMatchForm extends PureComponent {
   render() {
     const { form, updateModalVisible, handleUpdateModalVisible, values } = this.props;
     const { getFieldDecorator } = form;
+    this.state = {
+      formValues: {
+        id: values.id,
+        studentName: values.studentName,
+        idCard: values.idCard,
+        gender: values.gender,
+        profession: values.profession,
+        groupLevel: values.groupLevel,
+        worksName: values.worksName,
+        tutor: values.tutor,
+        birthDate: values.birthDate,
+      },
+    };
+
     const { formValues } = this.state;
     const formItemLayout = {
       labelCol: {

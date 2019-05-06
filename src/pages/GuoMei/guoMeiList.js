@@ -88,8 +88,28 @@ class UpdateGuoMeiForm extends PureComponent {
   };
 
   render() {
-    const { form, updateModalVisible, handleUpdateModalVisible, values, actIdOptions } = this.props;
+    const { form, updateModalVisible, handleUpdateModalVisible, actIdOptions, values } = this.props;
     const { getFieldDecorator } = form;
+    this.state = {
+      formValues: {
+        id: values.id,
+        numberId: values.numberId,
+        studentName: values.studentName,
+        nationality: values.nationality,
+        nation: values.nation,
+        gender: values.gender,
+        birthDate: values.birthDate,
+        certificateNumber: values.certificateNumber,
+        profession: values.profession,
+        declareLevel: values.declareLevel,
+        examinationLevel: values.examinationLevel,
+        originalLevel: values.originalLevel,
+        nativePlace: values.nativePlace,
+        examDate: values.examDate,
+        actId: values.actId,
+      },
+    };
+
     const { formValues } = this.state;
     const formItemLayout = {
       labelCol: {

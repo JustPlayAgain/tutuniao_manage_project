@@ -66,6 +66,14 @@ class UpdateNewsForm extends PureComponent {
   render() {
     const { form, updateModalVisible, handleUpdateModalVisible, values } = this.props;
     const { getFieldDecorator } = form;
+    this.state = {
+      formValues: {
+        id: values.id,
+        newsUrl: values.newsUrl,
+        newsPic: values.newsPic,
+        newsTitle: values.newsTitle,
+      },
+    };
     const { formValues } = this.state;
     const formItemLayout = {
       labelCol: {

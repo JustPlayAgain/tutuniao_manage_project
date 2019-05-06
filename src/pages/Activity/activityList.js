@@ -62,6 +62,14 @@ class UpdateActivityForm extends PureComponent {
   render() {
     const { form, updateModalVisible, handleUpdateModalVisible, values } = this.props;
     const { getFieldDecorator } = form;
+    this.state = {
+      formValues: {
+        activityId: values.id,
+        activityName: values.activityName,
+        activityCode: values.activityCode,
+        activityDate: values.activityDate,
+      },
+    };
     const { formValues } = this.state;
     const formItemLayout = {
       labelCol: {
