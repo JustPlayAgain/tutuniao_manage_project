@@ -203,7 +203,7 @@ class UpdateGuoMeiForm extends PureComponent {
                   message: '请输入专业',
                 },
               ],
-              initialValue: formValues.certificateNumber,
+              initialValue: formValues.profession,
             })(<Input placeholder="请输入专业" />)}
           </FormItem>
           <FormItem {...formItemLayout} label="申报级别">
