@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import Redirect from 'umi/redirect';
-import { Form, Input, Card, DatePicker, Button, Select } from 'antd';
+import { Form, Input, Card, Button, Select } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 @connect(({ list }) => ({
@@ -26,8 +26,6 @@ class GuoMeiForms extends PureComponent {
     form.validateFieldsAndScroll((err, values) => {
       const fieldsValue = {
         ...values,
-        birthDate: values.birthDate.format('YYYY-MM-DD'),
-        examDate: values.examDate.format('YYYY-MM-DD'),
       };
       if (!err) {
         dispatch({
@@ -98,41 +96,6 @@ class GuoMeiForms extends PureComponent {
                 ],
               })(<Input placeholder="请输入学员名称" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="学员国籍">
-              {getFieldDecorator('nationality', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员国籍',
-                  },
-                ],
-              })(<Input placeholder="请输入学员国籍" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="学员民族">
-              {getFieldDecorator('nation', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员民族',
-                  },
-                ],
-              })(<Input placeholder="请输入学员民族" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="学员性别">
-              {getFieldDecorator('gender', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员性别',
-                  },
-                ],
-              })(
-                <Select placeholder="请选择测评/活动">
-                  <Option value="男">男</Option>
-                  <Option value="女">女</Option>
-                </Select>
-              )}
-            </FormItem>
             <FormItem {...formItemLayout} label="学员身份证">
               {getFieldDecorator('idCard', {
                 rules: [
@@ -143,87 +106,38 @@ class GuoMeiForms extends PureComponent {
                 ],
               })(<Input placeholder="请输入学员身份证" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="学员出生日期">
-              {getFieldDecorator('birthDate', {
+            <FormItem {...formItemLayout} label="大赛名称">
+              {getFieldDecorator('worksName', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入学员出生日期',
+                    message: '请输入大赛名称',
                   },
                 ],
-              })(<DatePicker format="YYYY-MM-DD" />)}
+              })(<Input placeholder="请输入大赛名称" />)}
             </FormItem>
-
-            <FormItem {...formItemLayout} label="学员证书编号">
-              {getFieldDecorator('certificateNumber', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员证书编号',
-                  },
-                ],
-              })(<Input placeholder="请输入学员证书编号" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="学员专业">
+            <FormItem {...formItemLayout} label="专业">
               {getFieldDecorator('profession', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入学员专业',
+                    message: '请输入专业',
                   },
                 ],
-              })(<Input placeholder="请输入学员专业" />)}
+              })(<Input placeholder="请输入专业" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="学员申报级别">
-              {getFieldDecorator('declareLevel', {
+
+            <FormItem {...formItemLayout} label="获奖结果">
+              {getFieldDecorator('results', {
                 rules: [
                   {
                     required: true,
-                    message: '请输入学员申报级别',
+                    message: '请输入获奖结果',
                   },
                 ],
-              })(<Input placeholder="请输入学员申报级别" />)}
+              })(<Input placeholder="请输入获奖结果" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="学员考试级别">
-              {getFieldDecorator('examinationLevel', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员考试级别',
-                  },
-                ],
-              })(<Input placeholder="请输入学员考试级别" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="学员原级别">
-              {getFieldDecorator('originalLevel', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员原级别',
-                  },
-                ],
-              })(<Input placeholder="请输入学员原级别" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="学员所在地">
-              {getFieldDecorator('nativePlace', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入学员所在地',
-                  },
-                ],
-              })(<Input placeholder="请输入学员所在地" />)}
-            </FormItem>
-            <FormItem {...formItemLayout} label="学员考试时间">
-              {getFieldDecorator('examDate', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入考试时间',
-                  },
-                ],
-              })(<DatePicker format="YYYY-MM-DD" />)}
-            </FormItem>
+
             <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
               <Button type="primary" htmlType="submit" loading={submitting}>
                 保存

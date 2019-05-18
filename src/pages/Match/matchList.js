@@ -27,14 +27,14 @@ class UpdateMatchForm extends PureComponent {
     this.state = {
       formValues: {
         id: props.values.id,
-        studentName: props.values.studentName,
-        idCard: props.values.idCard,
-        gender: props.values.gender,
-        profession: props.values.profession,
-        groupLevel: props.values.groupLevel,
-        worksName: props.values.worksName,
-        tutor: props.values.tutor,
-        birthDate: props.values.birthDate,
+        idCard: props.idCard,
+        studentName: props.studentName,
+        worksName: props.worksName,
+        certificateNumber: props.certificateNumber,
+        profession: props.profession,
+        examinationLevel: props.examinationLevel,
+        nativePlace: props.nativePlace,
+        examDate: props.examDate,
       },
     };
   }
@@ -46,14 +46,14 @@ class UpdateMatchForm extends PureComponent {
       const fieldsValue = {
         ...values,
         id: formValues.id,
-        studentName: values.studentName,
         idCard: values.idCard,
-        gender: values.gender,
-        profession: values.profession,
-        groupLevel: values.groupLevel,
+        studentName: values.studentName,
         worksName: values.worksName,
-        tutor: values.tutor,
-        birthDate: values.birthDate.format('YYYY-MM-DD'),
+        certificateNumber: values.certificateNumber,
+        profession: values.profession,
+        examinationLevel: values.examinationLevel,
+        nativePlace: values.nativePlace,
+        examDate: values.examDate.format('YYYY-MM-DD'),
       };
       if (!err) {
         handleUpdate(fieldsValue);
@@ -67,14 +67,14 @@ class UpdateMatchForm extends PureComponent {
     this.state = {
       formValues: {
         id: values.id,
-        studentName: values.studentName,
         idCard: values.idCard,
-        gender: values.gender,
-        profession: values.profession,
-        groupLevel: values.groupLevel,
+        studentName: values.studentName,
         worksName: values.worksName,
-        tutor: values.tutor,
-        birthDate: values.birthDate,
+        certificateNumber: values.certificateNumber,
+        profession: values.profession,
+        examinationLevel: values.examinationLevel,
+        nativePlace: values.nativePlace,
+        examDate: values.examDate,
       },
     };
 
@@ -124,16 +124,27 @@ class UpdateMatchForm extends PureComponent {
               initialValue: formValues.idCard,
             })(<Input placeholder="请输入身份证" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="性别">
-            {getFieldDecorator('gender', {
+          <FormItem {...formItemLayout} label="测评名称">
+            {getFieldDecorator('worksName', {
               rules: [
                 {
                   required: true,
-                  message: '请输入性别',
+                  message: '请输入测评名称',
                 },
               ],
-              initialValue: formValues.gender,
-            })(<Input placeholder="请输入性别" />)}
+              initialValue: formValues.worksName,
+            })(<Input placeholder="请输入测评名称" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="证书编号">
+            {getFieldDecorator('certificateNumber', {
+              rules: [
+                {
+                  required: true,
+                  message: '请输入证书编号',
+                },
+              ],
+              initialValue: formValues.certificateNumber,
+            })(<Input placeholder="请输入证书编号" />)}
           </FormItem>
           <FormItem {...formItemLayout} label="专业">
             {getFieldDecorator('profession', {
@@ -146,48 +157,37 @@ class UpdateMatchForm extends PureComponent {
               initialValue: formValues.profession,
             })(<Input placeholder="请输入专业" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="组别">
-            {getFieldDecorator('groupLevel', {
+          <FormItem {...formItemLayout} label="考试级别">
+            {getFieldDecorator('examinationLevel', {
               rules: [
                 {
                   required: true,
-                  message: '请输入组别',
+                  message: '请输入考试级别',
                 },
               ],
-              initialValue: formValues.groupLevel,
-            })(<Input placeholder="请输入组别" />)}
+              initialValue: formValues.examinationLevel,
+            })(<Input placeholder="请输入考试级别" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="作品名称">
-            {getFieldDecorator('worksName', {
+          <FormItem {...formItemLayout} label="所在地">
+            {getFieldDecorator('nativePlace', {
               rules: [
                 {
                   required: true,
-                  message: '请输入作品名称',
+                  message: '请输入所在地',
                 },
               ],
-              initialValue: formValues.worksName,
-            })(<Input placeholder="请输入作品名称" />)}
+              initialValue: formValues.nativePlace,
+            })(<Input placeholder="请输入所在地" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="辅导老师">
-            {getFieldDecorator('tutor', {
+          <FormItem {...formItemLayout} label="考试时间">
+            {getFieldDecorator('examDate', {
               rules: [
                 {
                   required: true,
-                  message: '请输入辅导老师',
+                  message: '请输入考试时间',
                 },
               ],
-              initialValue: formValues.tutor,
-            })(<Input placeholder="请输入辅导老师" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="出生日期">
-            {getFieldDecorator('birthDate', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入出生日期',
-                },
-              ],
-              initialValue: moment(formValues.birthDate),
+              initialValue: moment(formValues.examDate),
             })(<DatePicker format="YYYY-MM-DD" />)}
           </FormItem>
         </Form>
@@ -218,12 +218,17 @@ class MatchList extends PureComponent {
       width: 120,
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
-    { title: '性别', dataIndex: 'gender' },
+    { title: '测评名称', dataIndex: 'worksName' },
+    { title: '证书编号', dataIndex: 'certificateNumber' },
     { title: '专业', dataIndex: 'profession' },
-    { title: '组别', dataIndex: 'groupLevel' },
-    { title: '作品名称', dataIndex: 'worksName' },
-    { title: '辅导老师', dataIndex: 'tutor' },
-    { title: '获奖结果', dataIndex: 'results' },
+    { title: '考试级别', dataIndex: 'examinationLevel' },
+
+    { title: '所在地', dataIndex: 'nativePlace' },
+    {
+      title: '考试时间',
+      dataIndex: 'examDate',
+      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
+    },
     {
       title: '操作',
       fixed: 'right',
@@ -310,14 +315,14 @@ class MatchList extends PureComponent {
       type: 'match/updateMatchInfo',
       payload: {
         id: fields.id,
-        studentName: fields.studentName,
         idCard: fields.idCard,
-        gender: fields.gender,
-        profession: fields.profession,
-        groupLevel: fields.groupLevel,
+        studentName: fields.studentName,
         worksName: fields.worksName,
-        tutor: fields.tutor,
-        birthDate: fields.birthDate,
+        certificateNumber: fields.certificateNumber,
+        profession: fields.profession,
+        examinationLevel: fields.examinationLevel,
+        nativePlace: fields.nativePlace,
+        examDate: fields.examDate,
       },
       callback: data => {
         const { status } = data;
@@ -418,13 +423,36 @@ class MatchList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="组别">
-              {getFieldDecorator('groupLevel')(<Input placeholder="请输入组别" />)}
+            <FormItem label="测评名称">
+              {getFieldDecorator('worksName')(<Input placeholder="测评名称" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="辅导老师">
-              {getFieldDecorator('tutor')(<Input placeholder="请输入辅导老师" />)}
+            <FormItem label="证书编号">
+              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+          <Col md={8} sm={24}>
+            <FormItem label="考试时间">
+              {getFieldDecorator('examDate')(
+                <DatePicker style={{ width: '100%' }} placeholder="请输入考试时间" />
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="所在地">
+              {getFieldDecorator('nativePlace')(
+                <Input style={{ width: '100%' }} placeholder="请输入所在地" />
+              )}
+            </FormItem>
+          </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="考试级别">
+              {getFieldDecorator('examinationLevel')(
+                <Input style={{ width: '100%' }} placeholder="请输入考试级别" />
+              )}
             </FormItem>
           </Col>
         </Row>

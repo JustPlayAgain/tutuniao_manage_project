@@ -41,21 +41,14 @@ class UpdateGuoMeiForm extends PureComponent {
     super(props);
     this.state = {
       formValues: {
-        id: props.values.id,
-        numberId: props.values.numberId,
-        studentName: props.values.studentName,
-        nationality: props.values.nationality,
-        nation: props.values.nation,
-        gender: props.values.gender,
-        birthDate: props.values.birthDate,
-        certificateNumber: props.values.certificateNumber,
-        profession: props.values.profession,
-        declareLevel: props.values.declareLevel,
-        examinationLevel: props.values.examinationLevel,
-        originalLevel: props.values.originalLevel,
-        nativePlace: props.values.nativePlace,
-        examDate: props.values.examDate,
-        actId: props.values.actId,
+        id: props.id,
+        numberId: props.numberId,
+        studentName: props.studentName,
+        idCard: props.idCard,
+        worksName: props.worksName,
+        profession: props.profession,
+        results: props.results,
+        actId: props.actId,
       },
     };
   }
@@ -69,17 +62,11 @@ class UpdateGuoMeiForm extends PureComponent {
         id: formValues.id,
         numberId: values.numberId,
         studentName: values.studentName,
-        nationality: values.nationality,
-        nation: values.nation,
-        gender: values.gender,
-        birthDate: values.birthDate.format('YYYY-MM-DD'),
-        certificateNumber: values.certificateNumber,
+        idCard: values.idCard,
+        worksName: values.worksName,
         profession: values.profession,
-        declareLevel: values.declareLevel,
-        examinationLevel: values.examinationLevel,
-        originalLevel: values.originalLevel,
-        nativePlace: values.nativePlace,
-        examDate: values.examDate.format('YYYY-MM-DD'),
+        results: values.results,
+        actId: values.actId,
       };
       if (!err) {
         handleUpdate(fieldsValue);
@@ -95,17 +82,10 @@ class UpdateGuoMeiForm extends PureComponent {
         id: values.id,
         numberId: values.numberId,
         studentName: values.studentName,
-        nationality: values.nationality,
-        nation: values.nation,
-        gender: values.gender,
-        birthDate: values.birthDate,
-        certificateNumber: values.certificateNumber,
+        idCard: values.idCard,
+        worksName: values.worksName,
         profession: values.profession,
-        declareLevel: values.declareLevel,
-        examinationLevel: values.examinationLevel,
-        originalLevel: values.originalLevel,
-        nativePlace: values.nativePlace,
-        examDate: values.examDate,
+        results: values.results,
         actId: values.actId,
       },
     };
@@ -160,60 +140,27 @@ class UpdateGuoMeiForm extends PureComponent {
               initialValue: formValues.studentName,
             })(<Input placeholder="请输入学员姓名" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="国籍">
-            {getFieldDecorator('nationality', {
+          <FormItem {...formItemLayout} label="身份证">
+            {getFieldDecorator('idCard', {
               rules: [
                 {
                   required: true,
-                  message: '请输入国籍',
+                  message: '请输入身份证',
                 },
               ],
-              initialValue: formValues.nationality,
-            })(<Input placeholder="请输入国籍" />)}
+              initialValue: formValues.idCard,
+            })(<Input placeholder="请输入身份证" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="民族">
-            {getFieldDecorator('nation', {
+          <FormItem {...formItemLayout} label="大赛名称">
+            {getFieldDecorator('worksName', {
               rules: [
                 {
                   required: true,
-                  message: '请输入民族',
+                  message: '请输入大赛名称',
                 },
               ],
-              initialValue: formValues.nation,
-            })(<Input placeholder="请输入民族" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="性别">
-            {getFieldDecorator('gender', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入性别',
-                },
-              ],
-              initialValue: formValues.gender,
-            })(<Input placeholder="请输入性别" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="出生日期">
-            {getFieldDecorator('birthDate', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入出生日期',
-                },
-              ],
-              initialValue: moment(formValues.birthDate),
-            })(<DatePicker format="YYYY-MM-DD" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="证书编号">
-            {getFieldDecorator('certificateNumber', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入证书编号',
-                },
-              ],
-              initialValue: formValues.certificateNumber,
-            })(<Input placeholder="请输入证书编号" />)}
+              initialValue: formValues.worksName,
+            })(<Input placeholder="请输入大赛名称" />)}
           </FormItem>
           <FormItem {...formItemLayout} label="专业">
             {getFieldDecorator('profession', {
@@ -226,60 +173,16 @@ class UpdateGuoMeiForm extends PureComponent {
               initialValue: formValues.profession,
             })(<Input placeholder="请输入专业" />)}
           </FormItem>
-          <FormItem {...formItemLayout} label="申报级别">
-            {getFieldDecorator('declareLevel', {
+          <FormItem {...formItemLayout} label="获奖结果">
+            {getFieldDecorator('results', {
               rules: [
                 {
                   required: true,
-                  message: '请输入申报级别',
+                  message: '请输入获奖结果',
                 },
               ],
-              initialValue: formValues.declareLevel,
-            })(<Input placeholder="请输入申报级别" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="考试级别">
-            {getFieldDecorator('examinationLevel', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入考试级别',
-                },
-              ],
-              initialValue: formValues.examinationLevel,
-            })(<Input placeholder="请输入考试级别" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="原级别">
-            {getFieldDecorator('originalLevel', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入原级别',
-                },
-              ],
-              initialValue: formValues.originalLevel,
-            })(<Input placeholder="请输入原级别" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="所在地">
-            {getFieldDecorator('nativePlace', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入所在地',
-                },
-              ],
-              initialValue: formValues.nativePlace,
-            })(<Input placeholder="请输入所在地" />)}
-          </FormItem>
-          <FormItem {...formItemLayout} label="活动时间">
-            {getFieldDecorator('examDate', {
-              rules: [
-                {
-                  required: true,
-                  message: '请输入活动时间',
-                },
-              ],
-              initialValue: moment(formValues.examDate),
-            })(<DatePicker format="YYYY-MM-DD" />)}
+              initialValue: formValues.results,
+            })(<Input placeholder="请输入获奖结果" />)}
           </FormItem>
         </Form>
       </Modal>
@@ -307,28 +210,16 @@ class GuoMeiList extends PureComponent {
   columns = [
     { title: '学员姓名', dataIndex: 'studentName', key: 'name', fixed: 'left' },
     { title: '身份证', dataIndex: 'idCard' },
-    { title: '证书编号', dataIndex: 'certificateNumber' },
-    { title: '国籍', dataIndex: 'nationality' },
-    { title: '民族', dataIndex: 'nation' },
-    { title: '性别', dataIndex: 'gender' },
+
     {
       title: '出生日期',
       dataIndex: 'birthDate',
       width: 120,
       render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
     },
-
+    { title: '大赛名称', dataIndex: 'worksName' },
     { title: '专业', dataIndex: 'profession' },
-    { title: '申报级别', dataIndex: 'declareLevel' },
-    { title: '考试级别', dataIndex: 'examinationLevel' },
-    { title: '原级别', dataIndex: 'originalLevel' },
-    { title: '所在地', dataIndex: 'nativePlace' },
-    {
-      title: '考试时间',
-      dataIndex: 'examDate',
-      width: 120,
-      render: val => <span>{moment(val).format('YYYY-MM-DD')}</span>,
-    },
+    { title: '获奖结果', dataIndex: 'results' },
     {
       title: '操作',
       fixed: 'right',
@@ -368,17 +259,10 @@ class GuoMeiList extends PureComponent {
         id: fields.id,
         numberId: fields.numberId,
         studentName: fields.studentName,
-        nationality: fields.nationality,
-        nation: fields.nation,
-        gender: fields.gender,
-        birthDate: fields.birthDate,
-        certificateNumber: fields.certificateNumber,
+        idCard: fields.idCard,
+        worksName: fields.worksName,
         profession: fields.profession,
-        declareLevel: fields.declareLevel,
-        examinationLevel: fields.examinationLevel,
-        originalLevel: fields.originalLevel,
-        nativePlace: fields.nativePlace,
-        examDate: fields.examDate,
+        results: fields.results,
       },
       callback: data => {
         const { status } = data;
@@ -498,8 +382,8 @@ class GuoMeiList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="证书编号">
-              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
+            <FormItem label="大赛名称">
+              {getFieldDecorator('worksName')(<Input placeholder="请输入大赛名称" />)}
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
@@ -558,10 +442,16 @@ class GuoMeiList extends PureComponent {
             </FormItem>
           </Col>
           <Col md={8} sm={24}>
-            <FormItem label="证书编号">
-              {getFieldDecorator('certificateNumber')(<Input placeholder="请输入证书编号" />)}
+            <FormItem label="大赛名称">
+              {getFieldDecorator('worksName')(<Input placeholder="请输入大赛名称" />)}
             </FormItem>
           </Col>
+          <Col md={8} sm={24}>
+            <FormItem label="获奖结果">
+              {getFieldDecorator('results')(<Input placeholder="请输入获奖结果" />)}
+            </FormItem>
+          </Col>
+
           <Col md={8} sm={24}>
             <FormItem label="专业">
               {getFieldDecorator('profession')(<Input placeholder="请输入专业" />)}
@@ -574,21 +464,6 @@ class GuoMeiList extends PureComponent {
               {getFieldDecorator('birthDate')(
                 <DatePicker style={{ width: '100%' }} placeholder="请输入出生日期" />
               )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="申报级别">
-              {getFieldDecorator('declareLevel')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">级别1</Option>
-                  <Option value="1">级别2</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="民族">
-              {getFieldDecorator('nation')(<Input placeholder="请输入民族" />)}
             </FormItem>
           </Col>
         </Row>
