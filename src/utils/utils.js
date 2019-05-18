@@ -4,8 +4,8 @@ import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 
 export function getHttpTitle() {
-  // return 'http://39.106.123.79:8008/mxh';
-  return 'http://www.tutuniao.com:8008/mxh';
+  return 'http://39.106.123.79:8008/mxh';
+  // return 'http://www.tutuniao.com:8008/mxh';
 }
 
 export function fixedZero(val) {

@@ -81,7 +81,7 @@ class NewsForms extends PureComponent {
                 ],
               })(<Input placeholder="请输入跳转链接" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="缩略图地址">
+            <FormItem {...formItemLayout} label="缩略图地址(125*200) ">
               {getFieldDecorator('newsPic', {
                 rules: [
                   {
