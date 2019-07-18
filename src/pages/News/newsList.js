@@ -357,6 +357,36 @@ class NewsList extends PureComponent {
       showSizeChanger: true,
       showQuickJumper: true,
       ...pagination,
+      onShowSizeChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            pageIndex: 0,
+            pageSize,
+          };
+          dispatch({
+            type: 'news/queryNewsList',
+            payload: values,
+          });
+        });
+      },
+      onChange: (pageIndex, pageSize) => {
+        const { dispatch, form } = this.props;
+        form.validateFields((err, fieldsValue) => {
+          if (err) return;
+          const values = {
+            ...fieldsValue,
+            pageIndex,
+            pageSize,
+          };
+          dispatch({
+            type: 'news/queryNewsList',
+            payload: values,
+          });
+        });
+      },
     };
     const updateMethods = {
       dispatch: this.dispatch,
